@@ -24,7 +24,7 @@ jobs:
       - name: Get slide title
         run: echo "slide_title=$(basename $(git show ${{ github.sha }} --name-only -- "slides/" | grep "slides/" | tail -n 1) .md)" >> "$GITHUB_ENV"
       - name: Build
-        run: slidev build --base /lectures/${{env.slide_title}} slides/${{env.slide_title}}/$slides.md
+        run: slidev build --base /lectures/${{env.slide_title}} slides/${{env.slide_title}}/slides.md
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
