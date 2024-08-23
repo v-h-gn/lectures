@@ -60,6 +60,7 @@ jobs:
               echo $(echo "$dir" | awk -F'slides/' '{print $2}')
               slidev build --base /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
             done
+            echo $(find /build/)
 
       - name: Create index.html
         run: |
