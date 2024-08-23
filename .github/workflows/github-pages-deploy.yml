@@ -23,34 +23,40 @@ jobs:
         run:  npm i -g @slidev/cli
       - name: Get modified slide directories
         run: |
-          # Get the list of modified slide markdown files
-          modified_files=$(git show ${{ github.sha }} --name-only | grep "^slides/.*/.*\.\(md\|vue\|ts\|tsx\|js\|jsx\|html\|css\)$")
+          # Get the list of modified files
+            modified_files=$(git show ${{ github.sha }} --name-only | grep "^slides/.*/.*\.\(md\|vue\|ts\|tsx\|js\|jsx\|html\|css\)$")
 
-          echo "Modified files: $modified_files"
+            echo "Modified files: $modified_files"
 
-          # Temporary file to store directories
-          temp_file=$(mktemp)
+            # Temporary file to store directories
+            temp_file=$(mktemp)
 
-          # Loop through modified files and extract their directories
-          for file in $modified_files; do
-            dir=$(dirname $file)
-            first_two_parts=$(echo "$dir" | awk -F'/' '{print $1 "/" $2}')
-            # Add directory to temporary file
-            echo "$first_two_parts" >> "$temp_file"
-          done
+            # Loop through modified files and find the closest parent directory with a markdown file
+            for file in $modified_files; do
+              dir=$(dirname "$file")
 
-          echo "Modified directories: $temp_file"
+              # Traverse up the directory tree to find a parent with a .md file
+              while [ "$dir" != "." ]; do
+                if ls "$dir"/*.md >/dev/null 2>&1; then
+                  echo "$dir" >> "$temp_file"
+                  break
+                fi
+                dir=$(dirname "$dir")
+              done
+            done
 
-          # Remove duplicates and store the result in modified_dirs
-          modified_dirs=$(sort "$temp_file" | uniq | tr '\n' ' ')
+            echo "Directories with markdown files: $(cat $temp_file)"
 
-          # Clean up temporary file
-          rm "$temp_file"
+            # Remove duplicates and store the result in modified_dirs
+            modified_dirs=$(sort "$temp_file" | uniq | tr '\n' ' ')
 
-          echo "Unique modified directories: $modified_dirs"
+            # Clean up temporary file
+            rm "$temp_file"
 
-          # Output the modified directories to be used as an environment variable
-          echo "modified_dirs=${modified_dirs}" >> $GITHUB_ENV
+            echo "Unique modified directories: $modified_dirs"
+
+            # Output the modified directories to be used as an environment variable
+            echo "modified_dirs=${modified_dirs}" >> $GITHUB_ENV
 
       - name: Create build directory
         run: |
