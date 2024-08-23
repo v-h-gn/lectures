@@ -59,7 +59,7 @@ jobs:
         if: env.modified_dirs != ''
         run: |
             for dir in ${{ env.modified_dirs }}; do
-              mkdir -p /build/$(echo "$dir" | awk -F'slides/' '{print $2}')
+              mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
               slidev build --base $dir --out /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
             done
 
