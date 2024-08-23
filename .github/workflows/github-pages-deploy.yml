@@ -74,7 +74,6 @@ jobs:
             done
 
       - name: Build index.html
-        if: env.modified_dirs != ''
         run: |
               if [[ -f index.css ]]; then
                 mv index.css build/index.css
