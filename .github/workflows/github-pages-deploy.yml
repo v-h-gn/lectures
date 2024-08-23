@@ -73,9 +73,13 @@ jobs:
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
 
-      - name: Build modified slides
+      - name: Build index.html
         if: env.modified_dirs != ''
         run: |
+              if [[ -f index.css ]]; then
+                mv index.css build/index.css
+              fi
+
               # Temporary file to store links
               temp_links_file=$(mktemp)
 
@@ -92,6 +96,8 @@ jobs:
 
               # Sort the links lexicographically and remove duplicates
               sorted_links=$(sort "$temp_links_file" | uniq)
+
+              echo "Sorted links: $sorted_links"
 
               # Begin writing the new index.html in the lectures directory
               {
