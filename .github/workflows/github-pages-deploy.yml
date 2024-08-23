@@ -51,16 +51,16 @@ jobs:
 
           # Output the modified directories to be used as an environment variable
           echo "modified_dirs=${modified_dirs}" >> $GITHUB_ENV
+
+      - name: Create build directory
+        run: mkdir -p build
+
       - name: Build modified slides
         if: env.modified_dirs != ''
         run: |
-            # Make build directory for index.html
-            mkdir -p "build"
             for dir in ${{ env.modified_dirs }}; do
-              echo $(echo "$dir" | awk -F'slides/' '{print $2}')
-              slidev build --base /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
+              slidev build --base $dir --out $dir/slides.md /build/$(echo "$dir" | awk -F'slides/' '{print $2}')
             done
-            echo $(find /build/ -type d)
 
       - name: Create index.html
         run: |
