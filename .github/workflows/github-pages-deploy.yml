@@ -25,7 +25,8 @@ jobs:
         id: get-dirs
         run: |
           # Get the list of modified slide markdown files
-          modified_files=$(git show --name-only --pretty="" ${{ github.sha }} | grep "^slides/.*/.*.md$")
+          echo git show ${{ github.sha }} --name-only
+          modified_files=$(git show ${{ github.sha }} --name-only | grep "^slides/.*/.*.md$")
       
           # Initialize an empty string to store unique directories
           modified_dirs=""
