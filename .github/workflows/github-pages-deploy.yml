@@ -21,12 +21,25 @@ jobs:
         run: npm install
       - name: Install slidev
         run:  npm i -g @slidev/cli
-      - name: Get talk title
-        run: echo "talk_title=$(basename $(git show ${{ github.sha }} --name-only -- "slides/" | grep "slides/" | tail -n 1) .md)" >> "$GITHUB_ENV"
-      - name: Debug
-        run: echo ${{env.talk_title}}
-      - name: Build
-        run: slidev build --base /lectures/${{env.talk_title}} slides/${{env.talk_title}}/
+      - name: Get modified slide directories
+        id: get-dirs
+        run: |
+          # Get the list of modified slide markdown files
+          modified_files=$(git show --name-only --pretty="" ${{ github.sha }} | grep "^slides/.*/.*.md$")
+      
+          # Initialize an empty string to store unique directories
+          modified_dirs=""
+      
+          # Loop through modified files and extract their directories
+          for file in $modified_files; do
+            dir=$(dirname $file)
+            # Add directory to list, separated by space
+            modified_dirs="$modified_dirs $dir"
+          done
+      
+          # Output the modified directories to be used as an environment variable
+          echo "modified_dirs=${modified_dirs}" >> $GITHUB_ENV
+          echo ${{ env.modified_dirs }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
