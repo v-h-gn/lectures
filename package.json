@@ -12,7 +12,9 @@
     "@slidev/theme-default": "latest",
     "@slidev/theme-seriph": "latest",
     "slidev-theme-neversink": "^0.3.4",
-    "@iconify-json/mdi": "^1.1.66",
     "vue": "^3.4.38"
+  },
+  "devDependencies": {
+    "@iconify-json/mdi": "^1.1.68"
   }
 }
