@@ -105,7 +105,7 @@ jobs:
                 echo '  <link rel="stylesheet" href="../index.css">'
                 echo '  <title>Slide Presentations</title>'
                 echo '</head>'
-                echo '<body>'
+                echo '<body class="container">'
                 echo '  <h1>Slide Presentations</h1>'
                 echo '  <ul>'
 
