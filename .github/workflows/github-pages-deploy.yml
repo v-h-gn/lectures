@@ -29,18 +29,18 @@ jobs:
           echo "Modified files: $modified_files"
           echo "modified_files=${modified_files}" >> $GITHUB_ENV
 
-          # Initialize an empty string to store unique directories
-          modified_dirs=""
+          # Temporary file to store directories
+          temp_file=$(mktemp)
 
           # Loop through modified files and extract their directories
           for file in $modified_files; do
             dir=$(dirname $file)
             first_two_parts=$(echo "$dir" | awk -F'/' '{print $1 "/" $2}')
-            # Add directory to list, separated by space
-            modified_dirs="$modified_dirs $first_two_parts"
+            # Add directory to temporary file
+            echo "$first_two_parts" >> "$temp_file"
           done
 
-          echo "Modified directories: $modified_dirs"
+          echo "Modified directories: $temp_file"
 
           # Remove duplicates and store the result in modified_dirs
           modified_dirs=$(sort "$temp_file" | uniq | tr '\n' ' ')
