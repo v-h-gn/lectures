@@ -1,6 +1,8 @@
 ---
 title: Test
 layout: intro
+theme: neversink
+color: slate
 ---
 
 # Test
