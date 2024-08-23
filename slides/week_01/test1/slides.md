@@ -1,6 +1,6 @@
 ---
-title: Test 1
+title: Test
 layout: intro
 ---
 
-# Test 1
+# Test

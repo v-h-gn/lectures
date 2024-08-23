@@ -102,7 +102,7 @@ jobs:
                 echo '<head>'
                 echo '  <meta charset="UTF-8">'
                 echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">'
-                echo '  <link rel="stylesheet" href="../index.css">'
+                echo '  <link rel="stylesheet" href="./index.css">'
                 echo '  <title>Slide Presentations</title>'
                 echo '</head>'
                 echo '<body class="container">'
