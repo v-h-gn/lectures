@@ -1,6 +1,6 @@
 ---
 theme: default
-title: Welcome to Slidev #5
+title: Welcome to Slidev #6
 layout: intro
 ---
 
