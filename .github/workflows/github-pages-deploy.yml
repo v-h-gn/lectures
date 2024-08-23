@@ -64,7 +64,7 @@ jobs:
         run: |
             for dir in ${{ env.modified_dirs }}; do
               slidev build --base /lectures/$dir $dir/slides.md
-              echo */
+              echo */*/*/
               mv lectures/$dir/dist /build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
 
