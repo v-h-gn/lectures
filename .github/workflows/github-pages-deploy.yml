@@ -103,10 +103,10 @@ jobs:
                 echo '  <meta charset="UTF-8">'
                 echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">'
                 echo '  <link rel="stylesheet" href="./index.css">'
-                echo '  <title>Slide Presentations</title>'
+                echo '  <title>Lectures</title>'
                 echo '</head>'
                 echo '<body class="container">'
-                echo '  <h1>Slide Presentations</h1>'
+                echo '  <h1>Lecture Presentations</h1>'
                 echo '  <ul>'
 
                 # Add sorted links to index.html
