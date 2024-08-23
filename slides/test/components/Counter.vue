@@ -18,7 +18,7 @@ const counter = ref(props.count)
       font="mono"
       outline="!none"
       hover:bg="gray-400 opacity-20"
-      @click="counter -= 10"
+      @click="counter -= 11"
     >
       -
     </button>
@@ -29,7 +29,7 @@ const counter = ref(props.count)
       font="mono"
       outline="!none"
       hover:bg="gray-400 opacity-20"
-      @click="counter += 10"
+      @click="counter += 11"
     >
       +
     </button>

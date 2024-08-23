@@ -57,6 +57,7 @@ jobs:
             # Make build directory for index.html
             mkdir -p "build"
             for dir in ${{ env.modified_dirs }}; do
+              echo $(echo "$dir" | awk -F'slides/' '{print $2}')
               slidev build --base /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
             done
 
