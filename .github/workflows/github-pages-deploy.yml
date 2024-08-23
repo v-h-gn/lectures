@@ -83,15 +83,11 @@ jobs:
               # Temporary file to store links
               temp_links_file=$(mktemp)
 
-              # Read existing links from index.html if it exists
-              if [[ -f build/index.html ]]; then
-                grep '<li><a href="' build/index.html | sed -E 's|.*<a href="([^"]*)".*|\1|' > "$temp_links_file"
-              fi
-
-              # Build the modified slides and collect new links
-              for dir in ${{ env.modified_dirs }}; do
-                # Generate the relative link path (without index.html) and append to temp file
-                echo "$(echo "$dir" | awk -F'slides/' '{print $2}')" >> "$temp_links_file"
+              # Find all directories containing a slides.md file and extract their relative paths
+              find slides -type f -name "slides.md" | while read -r file; do
+                dir=$(dirname "$file")
+                slide_path=$(echo "$dir" | sed 's|slides/||')
+                echo "$slide_path" >> "$temp_links_file"
               done
 
               # Sort the links lexicographically and remove duplicates
@@ -125,7 +121,6 @@ jobs:
 
               # Clean up temporary files
               rm "$temp_links_file"
-          
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
