@@ -73,15 +73,53 @@ jobs:
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
 
-      - name: Create index.html
+      - name: Build modified slides
+        if: env.modified_dirs != ''
         run: |
-            # Create index.html with links to all talks
-            echo "<html><body><h1>Lectures</h1><ul>" > build/index.html
-            for dir in ${{ env.modified_dirs }}; do
-              slide=$(basename "$dir")
-              echo "<li><a href=\"/lectures/$slide\">$slide</a></li>" >> build/index.html
-            done
-            echo "</ul></body></html>" >> build/index.html
+              # Temporary file to store links
+              temp_links_file=$(mktemp)
+
+              # Read existing links from index.html if it exists
+              if [[ -f build/index.html ]]; then
+                grep '<li><a href="' build/index.html | sed -E 's|.*<a href="([^"]*)".*|\1|' > "$temp_links_file"
+              fi
+
+              # Build the modified slides and collect new links
+              for dir in ${{ env.modified_dirs }}; do
+                # Generate the relative link path (without index.html) and append to temp file
+                echo "$(echo "$dir" | awk -F'slides/' '{print $2}')" >> "$temp_links_file"
+              done
+
+              # Sort the links lexicographically and remove duplicates
+              sorted_links=$(sort "$temp_links_file" | uniq)
+
+              # Begin writing the new index.html in the lectures directory
+              {
+                echo '<!DOCTYPE html>'
+                echo '<html lang="en">'
+                echo '<head>'
+                echo '  <meta charset="UTF-8">'
+                echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">'
+                echo '  <link rel="stylesheet" href="../index.css">'
+                echo '  <title>Slide Presentations</title>'
+                echo '</head>'
+                echo '<body>'
+                echo '  <h1>Slide Presentations</h1>'
+                echo '  <ul>'
+
+                # Add sorted links to index.html
+                for link in $sorted_links; do
+                  echo "    <li><a href=\"$link/\">$link</a></li>"
+                done
+
+                echo '  </ul>'
+                echo '</body>'
+                echo '</html>'
+              } > build/index.html
+
+              # Clean up temporary files
+              rm "$temp_links_file"
+          
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4

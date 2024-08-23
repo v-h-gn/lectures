@@ -3,7 +3,7 @@ title: Test 2
 layout: intro
 ---
 
-# Test 2
+# Test 
 
 ```python {monaco-run} {autorun:true}
 import math
