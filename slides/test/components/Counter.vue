@@ -18,7 +18,7 @@ const counter = ref(props.count)
       font="mono"
       outline="!none"
       hover:bg="gray-400 opacity-20"
-      @click="counter -= 19"
+      @click="counter -= 20"
     >
       -
     </button>
