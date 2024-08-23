@@ -57,7 +57,6 @@ jobs:
             mkdir -p build
             for dir in ${{ env.modified_dirs }}; do
               mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
-              echo "$(build/$(echo "$dir" | awk -F'slides/' '{print $2}'))"
             done
 
       - name: Build modified slides
@@ -65,7 +64,7 @@ jobs:
         run: |
             for dir in ${{ env.modified_dirs }}; do
               mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
-              slidev build --base /lectures/$dir --out /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
+              slidev build --base /lectures/$dir --out /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md --emptyOutDir
             done
 
       - name: Create index.html
