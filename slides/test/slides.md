@@ -7,7 +7,7 @@ layout: intro
 # Welcome to Slidev
 
 Presentation slides for developers  
-<Counter :count="1" m="t-4" />
+<Counter :count="2" m="t-4" />
 
 ---
 layout: intro

@@ -40,6 +40,12 @@ jobs:
             modified_dirs="$modified_dirs $first_two_parts"
           done
 
+          # Remove duplicates and store the result in modified_dirs
+          modified_dirs=$(sort "$temp_file" | uniq | tr '\n' ' ')
+
+          # Clean up temporary file
+          rm "$temp_file"
+
           echo "Modified directories: $modified_dirs"
 
           # Output the modified directories to be used as an environment variable
