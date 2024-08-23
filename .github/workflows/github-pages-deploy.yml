@@ -35,8 +35,9 @@ jobs:
           # Loop through modified files and extract their directories
           for file in $modified_files; do
             dir=$(dirname $file)
+            first_two_parts=$(echo "$dir" | awk -F'/' '{print $1 "/" $2}')
             # Add directory to list, separated by space
-            modified_dirs="$modified_dirs $dir"
+            modified_dirs="$modified_dirs $first_two_parts"
           done
 
           echo "Modified directories: $modified_dirs"
@@ -53,18 +54,28 @@ jobs:
       - name: Create index.html
         run: |
             # Create index.html with links to all talks
-            echo "<html><body><h1>Lectures</h1><ul>" > index.html
+            echo "<html><body><h1>Lectures</h1><ul>" > build/index.html
             for dir in ${{ env.modified_dirs }}; do
               slide=$(basename "$dir")
-              echo "<li><a href=\"/slides/$slide\">$slide</a></li>" >> index.html
+              echo "<li><a href=\"/slides/$slide\">$slide</a></li>" >> build/index.html
             done
-            echo "</ul></body></html>" >> index.html
+            echo "</ul></body></html>" >> build/index.html
 
-      - name: Deploy 🚀
+      - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: '.' # The folder the action should deploy.
+          folder: slides # The folder the action should deploy.
+          target-folder: ''
+          clean: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy index.html 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
           target-folder: ''
           clean: false
         env:
