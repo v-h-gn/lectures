@@ -22,17 +22,16 @@ jobs:
       - name: Install slidev
         run:  npm i -g @slidev/cli
       - name: Get modified slide directories
-        id: get-dirs
         run: |
           # Get the list of modified slide markdown files
-          echo git show ${{ github.sha }} --name-only
-          modified_files=$(git show ${{ github.sha }} --name-only | grep "^slides/.*/.*.md$")
+          modified_files=$(git show ${{ github.sha }} --name-only | grep "^slides/.*/.*\.\(md\|vue\|ts\|tsx\|js\|jsx\|html\|css\)$")
 
           echo "Modified files: $modified_files"
-      
+          echo "modified_files=${modified_files}" >> $GITHUB_ENV
+
           # Initialize an empty string to store unique directories
           modified_dirs=""
-      
+
           # Loop through modified files and extract their directories
           for file in $modified_files; do
             dir=$(dirname $file)
@@ -41,16 +40,32 @@ jobs:
           done
 
           echo "Modified directories: $modified_dirs"
-      
+
           # Output the modified directories to be used as an environment variable
           echo "modified_dirs=${modified_dirs}" >> $GITHUB_ENV
+      - name: Build modified slides
+        if: env.modified_dirs != ''
+        run: |
+            for dir in ${{ env.modified_dirs }}; do
+              slidev build --base /slides/$(basename $dir) $dir/slides.md
+            done
+
+      - name: Create index.html
+        run: |
+            # Create index.html with links to all talks
+            echo "<html><body><h1>Lectures</h1><ul>" > index.html
+            for dir in ${{ env.modified_dirs }}; do
+              slide=$(basename "$dir")
+              echo "<li><a href=\"/slides/$slide\">$slide</a></li>" >> index.html
+            done
+            echo "</ul></body></html>" >> index.html
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # The branch the action should deploy to.
-          folder: slides/${{env.talk_title}}/dist # The folder the action should deploy.
-          target-folder: ${{ env.talk_title }}
+          folder: slides # The folder the action should deploy.
+          target-folder: ''
           clean: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
