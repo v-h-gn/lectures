@@ -60,6 +60,8 @@ jobs:
 
       - name: Create index.html
         run: |
+            # Make build directory for index.html
+            mkdir -p "build"
             # Create index.html with links to all talks
             echo "<html><body><h1>Lectures</h1><ul>" > build/index.html
             for dir in ${{ env.modified_dirs }}; do
