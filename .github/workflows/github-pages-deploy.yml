@@ -63,7 +63,8 @@ jobs:
         if: env.modified_dirs != ''
         run: |
             for dir in ${{ env.modified_dirs }}; do
-              sudo slidev build --base /lectures/$dir --out /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
+              slidev build --base /lectures/$dir $dir/slides.md
+              mv /lectures/$dir/dist /build/$(echo "$dir" | awk -F'slides/' '{print $2}')
             done
 
       - name: Create index.html
