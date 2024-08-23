@@ -64,7 +64,16 @@ jobs:
         run: |
             for dir in ${{ env.modified_dirs }}; do
               slidev build --base /lectures/$dir $dir/slides.md
-              echo $(ls -d slides/*/*/)
+              if [ -d "$dir/dist" ]; then
+                echo "Directory 1 exists."
+              else
+                echo "Directory 1 does not exist."
+              fi
+              if [ -d "/build/$(echo "$dir" | awk -F'slides/' '{print $2}')" ]; then
+                echo "Directory 2 exists."
+              else
+                echo "Directory 2 does not exist."
+              fi
               mv $dir/dist /build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
 
