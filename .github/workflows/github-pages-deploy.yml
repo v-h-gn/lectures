@@ -54,14 +54,14 @@ jobs:
       - name: Build modified slides
         if: env.modified_dirs != ''
         run: |
+            # Make build directory for index.html
+            mkdir -p "build"
             for dir in ${{ env.modified_dirs }}; do
-              slidev build --base /slides/$(basename $dir) $dir/slides.md
+              slidev build --base /build/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
             done
 
       - name: Create index.html
         run: |
-            # Make build directory for index.html
-            mkdir -p "build"
             # Create index.html with links to all talks
             echo "<html><body><h1>Lectures</h1><ul>" > build/index.html
             for dir in ${{ env.modified_dirs }}; do
@@ -71,16 +71,6 @@ jobs:
             echo "</ul></body></html>" >> build/index.html
 
       - name: Deploy slides 🚀
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages # The branch the action should deploy to.
-          folder: slides # The folder the action should deploy.
-          target-folder: ''
-          clean: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Deploy index.html 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # The branch the action should deploy to.
