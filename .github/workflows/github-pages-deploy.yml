@@ -65,7 +65,7 @@ jobs:
             for dir in ${{ env.modified_dirs }}; do
               slidev build --base /lectures/$dir $dir/slides.md
               echo $(ls -d build/*)
-              mv $dir/dist build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
+              mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
 
       - name: Create index.html
