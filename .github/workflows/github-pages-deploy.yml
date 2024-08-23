@@ -27,6 +27,8 @@ jobs:
           # Get the list of modified slide markdown files
           echo git show ${{ github.sha }} --name-only
           modified_files=$(git show ${{ github.sha }} --name-only | grep "^slides/.*/.*.md$")
+
+          echo "Modified files: $modified_files"
       
           # Initialize an empty string to store unique directories
           modified_dirs=""
@@ -37,10 +39,11 @@ jobs:
             # Add directory to list, separated by space
             modified_dirs="$modified_dirs $dir"
           done
+
+          echo "Modified directories: $modified_dirs"
       
           # Output the modified directories to be used as an environment variable
           echo "modified_dirs=${modified_dirs}" >> $GITHUB_ENV
-          echo ${{ env.modified_dirs }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
