@@ -22,8 +22,8 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
-      - name: Install slidev
-        run: npm i -g @slidev/cli
+      # - name: Install slidev
+      #   run: npm i -g @slidev/cli
       - name: Get modified slide directories
         run: |
           # Get the list of modified files
