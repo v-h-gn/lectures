@@ -41,17 +41,17 @@ url: https://flappybird.gg/game
 ---
 
 <v-switch>
-  <template #0>
+  <template #1>
 
   # Slidev is fun! 😄
   
   </template>
-  <template #1>
+  <template #2>
   
   # Slidev is *not* fun! 😡
   
   </template>
-  <template #2>
+  <template #3>
   
   # Slidev is fun! 😅
   
