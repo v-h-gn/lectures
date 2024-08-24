@@ -51,7 +51,7 @@ url: https://flappybird.gg/game
   # Slidev is *not* fun! 😡
   
   </template>
-  <template #q2>
+  <template #2>
   
   # Slidev is fun! 😅
   
