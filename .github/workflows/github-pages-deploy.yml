@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm install
       # - name: Install slidev
-      #   run: npm i -g @slidev/cli
+      #   run: npm i @slidev/cli
       - name: Get modified slide directories
         run: |
           # Get the list of modified files
@@ -89,13 +89,13 @@ jobs:
             # Rebuild all slides if pages markdown modified
             for file in slides/*/slides.md; do
               dir=$(dirname "$file")
-              npm run build --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $file
+              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $file
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
           else
             # Only build modified slides
             for dir in ${{ env.modified_dirs }}; do
-              npm run build --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
+              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
           fi
