@@ -50,15 +50,24 @@ console.log("Hello world!")
 ```
 
 ---
-layout: top-title
+layout: top-title-two-cols
+align : l-lm-c
 theme: neversink
 color: bowdoin-title
 ---
 
-# This has a list of things
+:: title ::
+
+# This has a list of things and a drawing
+
+:: left ::
 
 - A
   + a
   + aa
 - B
 - C
+
+:: right ::
+
+<Excalidraw drawFilePath="./test.excalidraw" />
