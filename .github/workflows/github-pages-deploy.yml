@@ -79,7 +79,7 @@ jobs:
             mkdir -p build
             if [ "${{ env.pages_md_modified }}" = "true" ]; then
               # Create folders for all slide projects if pages markdown modified
-              for file in slides/*/slides.md; do
+              find slides -type f -name "slides.md" | while read -r file; do
                 dir=$(dirname "$file")
                 mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
               done
@@ -95,7 +95,7 @@ jobs:
         run: |
           if [ "${{ env.pages_md_modified }}" = "true" ]; then
             # Rebuild all slides if pages markdown modified
-            for file in slides/*/slides.md; do
+            find slides -type f -name "slides.md" | while read -r file; do
               dir=$(dirname "$file")
               npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $file
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
