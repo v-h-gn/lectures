@@ -65,6 +65,7 @@ title: Slidev!
 transition: fade
 layout: iframe-right
 url: https://giphy.com/embed/Fr5LA2RCQbnVp74CxH
+lineNumbers: true
 ---
 
 # Slidev is engaging!
