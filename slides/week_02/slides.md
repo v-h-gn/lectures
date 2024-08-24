@@ -3,7 +3,6 @@ theme: default
 title: Welcome to Slidev
 transition: slide-left
 layout: intro
-lineNumbers: true
 ---
 
 # Welcome to Slidev
@@ -70,16 +69,8 @@ url: https://giphy.com/embed/Fr5LA2RCQbnVp74CxH
 
 # Slidev is engaging!
 
-```python {monaco-run} {autorun:true}
-import math
-
-print("Hello world!")
-
-x = 4
-y = 2
-print(f"{x} + {y} = {x + y}")
-
-print("pi =", math.pi)
+```ts {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+console.log("Hello world!")
 ```
 
 ---
