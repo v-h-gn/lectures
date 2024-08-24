@@ -22,6 +22,7 @@ jobs:
           node-version: '20'
       - name: Install dependencies
         run: npm install
+
       - name: Get modified slide directories
         run: |
           # Get the list of modified files
@@ -75,10 +76,19 @@ jobs:
 
       - name: Create build directory
         run: |
-          mkdir -p build
-          for dir in ${{ env.modified_dirs }}; do
-            mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
-          done
+            mkdir -p build
+            if [ "${{ env.pages_md_modified }}" = "true" ]; then
+              # Create folders for all slide projects if pages markdown modified
+              for file in slides/*/slides.md; do
+                dir=$(dirname "$file")
+                mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
+              done
+            else
+              # Only create folders for modified directories
+              for dir in ${{ env.modified_dirs }}; do
+                mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
+              done
+            fi
 
       - name: Build modified slides
         if: env.modified_dirs != '' || env.pages_md_modified == 'true'
