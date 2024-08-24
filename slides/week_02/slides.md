@@ -58,6 +58,8 @@ url: https://flappybird.gg/game
   </template>
 </v-switch>
 
+<v-click>🐤</v-click>
+
 ---
 title: Slidev!
 transition: fade
