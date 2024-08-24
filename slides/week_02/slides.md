@@ -2,12 +2,25 @@
 theme: default
 title: Welcome to Slidev
 transition: slide-left
-layout: intro
+layout: two-cols-header
+routerMode: hash
 ---
 
 # Welcome to Slidev
 
-Presentation slides for developers  
+:: left ::
+
+Presentation slides for developers 
+
+:: right ::
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+print("Hello world!")
+```
+
+```ts {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+console.log("Hello world!")
+```
 
 ---
 title: Slidev!

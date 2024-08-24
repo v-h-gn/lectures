@@ -2,6 +2,7 @@
 theme: default
 title: Welcome to Slidev #10
 layout: default
+routerMode: hash
 ---
 
 # Welcome to Slidev

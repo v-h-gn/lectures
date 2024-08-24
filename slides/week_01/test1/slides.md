@@ -3,6 +3,7 @@ title: Test
 layout: intro
 theme: neversink
 color: slate
+routerMode: hash
 ---
 
 # Test

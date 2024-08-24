@@ -1,6 +1,7 @@
 ---
 title: Test 2
 layout: intro
+routerMode: hash
 ---
 
 # Test
