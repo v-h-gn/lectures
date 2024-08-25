@@ -97,7 +97,7 @@ jobs:
             # Rebuild all slides if pages markdown modified
             find slides -type f -name "slides.md" | while read -r file; do
               dir=$(dirname "$file")
-              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $file
+              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}')/ $file
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
           else
