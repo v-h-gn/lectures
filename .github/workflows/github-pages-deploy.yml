@@ -103,7 +103,7 @@ jobs:
           else
             # Only build modified slides
             for dir in ${{ env.modified_dirs }}; do
-              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}') $dir/slides.md
+              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}')/ $dir/slides.md
               mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
             done
           fi

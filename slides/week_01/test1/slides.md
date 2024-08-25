@@ -66,6 +66,7 @@ color: bowdoin-title
   + a
   + aa
 - B
+  + b
 - C
 
 :: right ::
