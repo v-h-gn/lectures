@@ -4,8 +4,6 @@ layout: cover
 theme: neversink
 color: bowdoin
 routerMode: hash
-addons:
-  - slidev-addon-excalidraw
 ---
 
 # Test
