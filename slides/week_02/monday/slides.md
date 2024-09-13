@@ -5,7 +5,7 @@ color: bowdoin
 routerMode: hash
 ---
 
-## Expressions, Variables, and Printing
+## Data Types
 
 Christopher Martin - _Bowdoin College_ <a href="https://bowdoin.edu/" class="ns-c-iconlink"><mdi-open-in-new /></a>
 
@@ -16,97 +16,23 @@ color: bowdoin-title
 
 :: title ::
 
-# Computers follow instructions to the letter
+# Types of Data
 
 :: content ::
 
 <br>
 
-Computers are really _frustratingly_ good at following our instructions **EXACTLY**.  
+Data makes up every fundamental aspect of a program but not all data is the same. Some forms of data are complex or ==composite== while others are more simple.
 
-They will do only what we specifically tell them to do - **nothing more**, **nothing less**.  
-
-<br>
-
-This means that when we communicate with a computer, we have to be especially mindful about what we are asking them to do and in what order we ask them to do it.  
+An example of this could be an image. In an image, each pixel is stored as three color values and the combination of all them makes up what we see. The image itself is complex while the individual color values are simple.
 
 <br>
 
-This is - without a doubt - going to be the one aspect of programming you struggle with the most.  
-
-Go slow, take your time, and really try to plan out what you are actually "saying".
-
----
-layout: side-title
-titlewidth: is-2
-align: cm-lm
-color: bowdoin-title
----
-
-:: title ::
-
-# Instructions
-
-:: content ::
-
-There are two different kind of instructions we can issue to the computer.  
+We say that types of data that are so simple they cannot be broken down any further are ==primitive==.
 
 <br>
 
-==Expressions== are instructions that are evaluated (like in math) to produce a value or answer. Anything that evaluates to a value is considered an expression. (Even a single value!)  
-
-<br>
-
-==Statements== are instructions that are executed to perform an action or task.
-
----
-layout: side-title
-titlewidth: is-2
-align: cm-lm
-color: bowdoin-title
----
-
-:: title ::
-
-# Arithmetic Operators
-
-:: content ::
-
-One thing that computers are especially good at is _math_.  
-
-Some of the most fundamental things we ask computers to do is to perform simple arithmetic using the ==operators== we are familiar with.
-
-| Human Operator    | Python Symbol | Example       |
-| ----------------- | ------------- | ------------- |
-| Addition          | `+`           | `5 + 5` = 10  |
-| Subtraction       | `-`           | `2 - 7` = -5  |
-| Multiplication    | `*`           | `3 * 4` = 12  |
-| Division          | `/`           | `5 / 2` = 2.5 |
-| Integer Quotient  | `//`          | `5 // 2` = 2  |
-| Integer Remainder | `%`           | `5 % 2` = 1   |
-| Exponentiation    | `**`          | `2 ** 3` = 8  |
-
----
-layout: side-title
-titlewidth: is-3
-align: cm-lm
-color: bowdoin-title
----
-
-:: title ::
-
-# Arithmetic Expressions
-
-:: content ::
-
-We can chain these operators together to create whatever ==expressions== we want! They can be as complex or as simple as you would imagine.  
-
-These ==arithmetic expressions== follow the standard order of operations.  
-
-For example:  
-
-`5 + 5 * 2` = 15  
-`(5 + 5) * 2` = 20
+So far, we have seen some examples of simple data but there are many more types of data to come!
 
 ---
 layout: top-title
@@ -115,56 +41,28 @@ color: bowdoin-title
 
 :: title ::
 
-# Variables
+# Primitive data
 
 :: content ::
 
-==Expressions== allow us to perform calculations but we usually want to store/save the results of those calculations.  
-
-Additionally, we may want to use placeholders in our expressions to represent where outside data might make the results of our expressions _vary_.  
-
 <br>
 
-==Variables== allow us to define containers that store values within them.
+<u>Computers store different kinds of primitive data in different ways, for example:</u>  
 
-We can define a variable by specifying it's name to be followed by an `=` and an expression.  
+A whole number / integer, or just ==int== for short,  is stored as an ascending scale of values in binary:
 
-`temperature = 74`, `name = "Chris"`  
+- `0000` is `0`, `0001` is `1`, `0010` is `2`, `0011` is `3`, etc
 
-`answer = 5 + 3 / 2`
+A real number / floating-point value, or just ==float== for short, is stored in scientific notation.   
+This goes outside the scope of our class but here is how `10.5` is stored:
 
-<br>
+- `0 10000010 01010000000000000000000` 🤔❓ 
 
-All variables need their own unique name in Python and names are case-sensitive.
+Text / string data, or just ==str== for short, is stored in a similar way but each binary arrangement corresponds to a character. Then, these characters are 'strung' together to form sequences.
 
-The variable `y` and `Y` are different!
+- `1000001` is `A`, `1000010` is `B`, `1000011` is `C`, etc
 
----
-layout: side-title
-titlewidth: is-2
-align: cm-lm
-color: bowdoin-title
----
-
-:: title ::
-
-# Variable Naming Rules
-
-:: content ::
-
-<u>All Python variable names must follow these rules:</u>
-
-- All variable names must begin with a letter or underscore
-- Variable names can only contain letters, numbers, and underscores
-
-<br>
-
-<u>Let's look at some examples:</u>
-- `hello`, `_hello`, `hello_world` ✅
-- `hello world` ❌ Variable names cannot contain spaces
-- `Student1`, `student_1`, `first_student` ✅
-- `1_student` ❌ Variable names cannot start with a number
-- `student#1` ❌ Variable names cannot contain #'s
+Some of you may note that it is the individual characters that are primitive, not the string itself!
 
 ---
 layout: top-title
@@ -173,77 +71,224 @@ color: bowdoin-title
 
 :: title ::
 
-# The need to output
+# The `type` Statement
 
 :: content ::
 
-Having to "think like a computer" gets a little annoying..  
+In Python, we can determine the type of a value using the `type()` statement.
+
+The `type()` statement will evaluate to the final data-type of whatever expression is provided to it.
 
 <br>
 
-For example, suppose we wanted the computer to calculate something. To you and me, it is part of the assumed context that - if I ask you to calculate something for me - I also want you to tell me the answer.
-
-<br>
-
-However, computers don't understand any type of context.  
-
-When we want the computer to do something **AND** tell us the result, we need to explicitly tell them that!  
-
-<br>
-
-```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
-5 + 5 # Produces no output?
-```
-
----
-layout: top-title
-color: bowdoin-title
----
-
-:: title ::
-
-# The `print` Statement
-
-:: content ::
-
-A very common way we visualize the results of a program is using `print()` ==statements==.
-
-<br>
-
-The `print()` statement allows us to tell the computer to output a line of text to the terminal.
-
-<br>
-
-Let's see how adding a `print()` statement makes a difference:
-
-```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
-print(5 + 5) # Tells the computer to "Calculate 5 + 5 and then print the result"
-```
-
----
-layout: top-title
-color: bowdoin-title
----
-
-:: title ::
-
-# Printing Expressions
-
-:: content ::
-
-<br>
-
-A `print()` statement takes in zero or more expressions separated by a comma in its `()` and displays them as text in the terminal. Remember that an ==expression== is anything that evaluates to a ==value==.
-
-Try changing the statements below to see how it changes the results:
+Let's see some examples!
 
 ```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-print(5 + 5)
-print("Hello world!")
-
-answer = 7 - 2
-print("The answer is", answer)
-
-print("It is currently", 64, "degrees outside!")
+print(type(5))
+print(type(1.5))
+print(type("Hello!"))
 ```
 
+<br>
+
+For right now, we can ignore the `class` part of the output and focus on the right-hand section.  
+
+In it, we see our familiar `int`, `float`, and `str`!
+
+---
+layout: top-title
+color: bowdoin-title
+---
+
+:: title ::
+
+# Types of Variables
+
+:: content ::
+
+<br>
+
+Variables store the type of data they hold but will update as their data changes:
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+answer = 5 + 5
+print("answer's type is", type(answer))
+
+answer = 7.5 - 2.3
+print("answer's type is", type(answer))
+
+answer = "I don't know"
+print("answer's type is", type(answer))
+```
+
+---
+layout: top-title
+color: bowdoin-title
+---
+
+:: title ::
+
+# Expressions with Different Types
+
+:: content ::
+
+<br>
+
+Sometimes, expressions involve multiple types.
+
+When this happens, the result will usually be the "larger" of the types.  
+
+This ensures that if you end up outside the range of the "smaller" type you will still get a valid answer.
+
+<br>
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+answer = 7.5 - 2 # 7.5 is a float and 2 is an int
+print(answer, type(answer))
+```
+
+<br>
+
+`int` is considered "smaller" than `float` because it can't store as many unique values.
+
+Due to this,  we will always get a `float` when evaluating an arithmetic operation that mixes the two.
+
+---
+layout: side-title
+titlewidth: is-2
+align: cm-lm
+color: bowdoin-title
+---
+
+:: title ::
+
+# Division
+
+:: content ::
+
+The division breaks this rule slightly.
+
+<br>
+
+Whenever we use the `/` operator, we will always get back a `float` result.
+
+This happens even if the two operands are `int`.
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+answer = 4 / 2
+print(answer, type(answer))
+```
+
+<br>
+
+If you want the possibility of getting an `int`, you must use the `//` operator:
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+answer = 4 // 2
+print(answer, type(answer))
+```
+
+---
+layout: top-title
+color: bowdoin-title
+---
+
+:: title ::
+
+# Different behavior for different things
+
+:: content ::
+
+<br>
+
+Sometimes, we reuse the same operators for different types of data.
+
+<br>
+
+A simple example of this is how we can use the `+` operator on `str` data!
+
+This "joins" or ==concatenates== the two strings together!
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+answer = "Mon" + "day"
+print(answer)
+```
+
+<br>
+
+This is kind of similar to what `+` does to numbers but acts differently for a different type of data.
+
+---
+layout: top-title
+color: bowdoin-title
+---
+
+:: title ::
+
+# Type incompatibilities
+
+:: content ::
+
+<br>
+
+Sometimes, we run into a situation where we cannot perform the operation we want because some of the data isn't the matching type for what we want to do:
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+# It is not possible to 'add' strings and other types
+answer = "The temperature is " + 58.5
+```
+
+<br>
+
+In these situations, we can ask the computer to convert a value from one type to another.
+
+This is referred to as ==type casting==.
+
+---
+layout: side-title
+titlewidth: is-2
+align: cm-lm
+color: bowdoin-title
+---
+
+:: title ::
+
+# Type casting
+
+:: content ::
+
+To type cast in Python, we use the name of the type we want to convert to like a function and pass in what we want to convert.
+
+For example:
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+print(type(str(5)))       # Converts the int value 5 into the string "5"
+print(type(float("3.5"))) # Converts the string "3.5" into the float value 3.5
+print(type(int(3.0)))     # Converts the float value 3.0 into the int value 3
+```
+
+<br>
+
+This becomes especially important when the data coming into our program is being entered as text because the user is typing it in or it is coming from a file.
+
+We will need to convert those strings into their actual values in the correct type before we can use them
+
+---
+layout: side-title
+titlewidth: is-2
+align: cm-lm
+color: bowdoin-title
+---
+
+:: title ::
+
+# Limitations
+
+:: content ::
+
+Type casting only works if the value you are attempting to convert can be represented somehow as a value in the other type:
+
+```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
+# The string value "Hello" cannot be represented as an int
+int("Hello")
+```
