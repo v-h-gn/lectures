@@ -36,7 +36,7 @@ jobs:
             echo "index_css_modified=false" >> $GITHUB_ENV
           fi
 
-          # Check if any markdown files in the pages directory are modified
+          # Check if any markdown files in the common directory are modified
           if echo "$modified_files" | grep -q "^common/.*\.md$"; then
             echo "common_md_modified=true" >> $GITHUB_ENV
           else
