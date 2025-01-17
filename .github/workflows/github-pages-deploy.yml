@@ -37,10 +37,10 @@ jobs:
           fi
 
           # Check if any markdown files in the pages directory are modified
-          if echo "$modified_files" | grep -q "^pages/.*\.md$"; then
-            echo "pages_md_modified=true" >> $GITHUB_ENV
+          if echo "$modified_files" | grep -q "^common/.*\.md$"; then
+            echo "common_md_modified=true" >> $GITHUB_ENV
           else
-            echo "pages_md_modified=false" >> $GITHUB_ENV
+            echo "common_md_modified=false" >> $GITHUB_ENV
           fi
 
           # Get modified published directories
