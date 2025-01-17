@@ -3,9 +3,9 @@ name: Deploy in Github Pages
 on: 
   push:
     paths:
-    - 'slides/**'
+    - 'published/**'
     - 'index.css'
-    - 'pages/**/*.md'
+    - 'common/**/*.md'
 
 permissions: 
   contents: write
@@ -43,15 +43,15 @@ jobs:
             echo "pages_md_modified=false" >> $GITHUB_ENV
           fi
 
-          # Get modified slides directories
-          slides_dirs=$(echo "$modified_files" | grep "^slides/.*/.*\.\(md\|vue\|ts\|tsx\|js\|jsx\|html\|css\)$" | xargs -I {} dirname {} | sort | uniq)
-          echo "Modified slide directories: $slides_dirs"
+          # Get modified published directories
+          published_dirs=$(echo "$modified_files" | grep "^published/.*/.*\.\(md\|vue\|ts\|tsx\|js\|jsx\|html\|css\)$" | xargs -I {} dirname {} | sort | uniq)
+          echo "Modified slide directories: $published_dirs"
 
           # Temporary file to store directories
           temp_file=$(mktemp)
 
           # Loop through modified files and find the closest parent directory with a markdown file
-          for dir in $slides_dirs; do
+          for dir in $published_dirs; do
             while [ "$dir" != "." ]; do
               if ls "$dir"/*.md >/dev/null 2>&1; then
                 echo "$dir" >> "$temp_file"
@@ -77,39 +77,39 @@ jobs:
       - name: Create build directory
         run: |
             mkdir -p build
-            if [ "${{ env.pages_md_modified }}" = "true" ]; then
-              # Create folders for all slide projects if pages markdown modified
+            if [ "${{ env.common_md_modified }}" = "true" ]; then
+              # Create folders for all slide projects if common markdown modified
               find slides -type f -name "slides.md" | while read -r file; do
                 dir=$(dirname "$file")
-                mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
+                mkdir -p build/$(echo "$dir" | awk -F'published/' '{print $2}')
               done
             else
               # Only create folders for modified directories
               for dir in ${{ env.modified_dirs }}; do
-                mkdir -p build/$(echo "$dir" | awk -F'slides/' '{print $2}')
+                mkdir -p build/$(echo "$dir" | awk -F'published/' '{print $2}')
               done
             fi
 
       - name: Build modified slides
-        if: env.modified_dirs != '' || env.pages_md_modified == 'true'
+        if: env.modified_dirs != '' || env.common_md_modified == 'true'
         run: |
-          if [ "${{ env.pages_md_modified }}" = "true" ]; then
-            # Rebuild all slides if pages markdown modified
+          if [ "${{ env.common_md_modified }}" = "true" ]; then
+            # Rebuild all slides if common markdown modified
             find slides -type f -name "slides.md" | while read -r file; do
               dir=$(dirname "$file")
-              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}')/ $file
-              mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
+              npm run build -- --base /lectures/$(echo "$dir" | awk -F'published/' '{print $2}')/ $file
+              mv $dir/dist/* build/$(echo "$dir" | awk -F'published/' '{print $2}') -v
             done
           else
             # Only build modified slides
             for dir in ${{ env.modified_dirs }}; do
-              npm run build -- --base /lectures/$(echo "$dir" | awk -F'slides/' '{print $2}')/ $dir/slides.md
-              mv $dir/dist/* build/$(echo "$dir" | awk -F'slides/' '{print $2}') -v
+              npm run build -- --base /lectures/$(echo "$dir" | awk -F'published/' '{print $2}')/ $dir/slides.md
+              mv $dir/dist/* build/$(echo "$dir" | awk -F'published/' '{print $2}') -v
             done
           fi
 
       - name: Build index.html
-        if: env.index_css_modified == 'true' || env.modified_dirs != '' || env.pages_md_modified == 'true'
+        if: env.index_css_modified == 'true' || env.modified_dirs != '' || env.common_md_modified == 'true'
         run: |
           if [[ -f index.css ]]; then
             mv index.css build/index.css
@@ -121,7 +121,7 @@ jobs:
           # Find all directories containing a slides.md file and extract their relative paths
           find slides -type f -name "slides.md" | while read -r file; do
             dir=$(dirname "$file")
-            slide_path=$(echo "$dir" | sed 's|slides/||')
+            slide_path=$(echo "$dir" | sed 's|published/||')
             echo "$slide_path" >> "$temp_links_file"
           done
 
