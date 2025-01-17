@@ -79,7 +79,7 @@ jobs:
             mkdir -p build
             if [ "${{ env.common_md_modified }}" = "true" ]; then
               # Create folders for all slide projects if common markdown modified
-              find slides -type f -name "slides.md" | while read -r file; do
+              find published -type f -name "slides.md" | while read -r file; do
                 dir=$(dirname "$file")
                 mkdir -p build/$(echo "$dir" | awk -F'published/' '{print $2}')
               done
@@ -95,7 +95,7 @@ jobs:
         run: |
           if [ "${{ env.common_md_modified }}" = "true" ]; then
             # Rebuild all slides if common markdown modified
-            find slides -type f -name "slides.md" | while read -r file; do
+            find published -type f -name "slides.md" | while read -r file; do
               dir=$(dirname "$file")
               npm run build -- --base /lectures/$(echo "$dir" | awk -F'published/' '{print $2}')/ $file
               mv $dir/dist/* build/$(echo "$dir" | awk -F'published/' '{print $2}') -v
@@ -119,7 +119,7 @@ jobs:
           temp_links_file=$(mktemp)
 
           # Find all directories containing a slides.md file and extract their relative paths
-          find slides -type f -name "slides.md" | while read -r file; do
+          find published -type f -name "slides.md" | while read -r file; do
             dir=$(dirname "$file")
             slide_path=$(echo "$dir" | sed 's|published/||')
             echo "$slide_path" >> "$temp_links_file"
