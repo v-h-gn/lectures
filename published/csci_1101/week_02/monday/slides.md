@@ -5,7 +5,7 @@ color: bowdoin
 routerMode: hash
 ---
 
-## Data Types
+## Functions
 
 Christopher Martin - _Bowdoin College_ <a href="https://bowdoin.edu/" class="ns-c-iconlink"><mdi-open-in-new /></a>
 
@@ -16,23 +16,32 @@ color: bowdoin-title
 
 :: title ::
 
-# Types of Data
+# Repeated problems
 
 :: content ::
 
-<br>
-
-Data makes up every fundamental aspect of a program but not all data is the same. Some forms of data are complex or ==composite== while others are more simple.
-
-An example of this could be an image. In an image, each pixel is stored as three color values and the combination of all them makes up what we see. The image itself is complex while the individual color values are simple.
+#### As we program, we may find ourselves rewriting the same code over and over again.
 
 <br>
 
-We say that types of data that are so simple they cannot be broken down any further are ==primitive==.
+For example, say we were writing a calculation program to help us check some of our math homework.
 
 <br>
 
-So far, we have seen some examples of simple data but there are many more types of data to come!
+Using the quadratic equation:
+
+$$
+x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
+<br>
+
+1. Find the solutions for the equation $x^2 + 5x + 6 = 0$.
+
+2. Find the solutions for the equation $2x^2 - 3x + 1 = 0$.
+
+3. Find the solutions for the equation $x^2 + 4x + 5 = 0$.
+
 
 ---
 layout: top-title
@@ -41,28 +50,28 @@ color: bowdoin-title
 
 :: title ::
 
-# Primitive data
+# Implementing a solution
 
 :: content ::
 
-<br>
+#### We could implement our program like so:
 
-<u>Computers store different kinds of primitive data in different ways, for example:</u>  
+```python {monaco-run} {editorOptions: { lineNumbers:'on'}}
+# Try different numbers to see what happens!
+a = 1
+b = 5
+c = 6
 
-A whole number / integer, or just ==int== for short,  is stored as an ascending scale of values in binary:
+b_squared = b ** 2
+four_a_c = 4 * a * c
+two_a = a * 2
 
-- `0000` is `0`, `0001` is `1`, `0010` is `2`, `0011` is `3`, etc
+solution_1 = (-b + (b_squared - four_a_c) ** 0.5) / two_a
+solution_2 = (-b - (b_squared - four_a_c) ** 0.5) / two_a
+print("The solutions are", solution_1, "and", solution_2)
+```
 
-A real number / floating-point value, or just ==float== for short, is stored in scientific notation.   
-This goes outside the scope of our class but here is how `10.5` is stored:
-
-- `0 10000010 01010000000000000000000` 🤔❓ 
-
-Text / string data, or just ==str== for short, is stored in a similar way but each binary arrangement corresponds to a character. Then, these characters are 'strung' together to form sequences.
-
-- `1000001` is `A`, `1000010` is `B`, `1000011` is `C`, etc
-
-Some of you may note that it is the individual characters that are primitive, not the string itself!
+<twemoji-smirking-face v-drag="[787,403,96,89]" />
 
 ---
 layout: top-title
@@ -71,29 +80,61 @@ color: bowdoin-title
 
 :: title ::
 
-# The `type` Statement
+# The issue...
 
 :: content ::
 
-In Python, we can determine the type of a value using the `type()` statement.
+#### This would work but we need to duplicate all of this code for each problem...
 
-The `type()` statement will evaluate to the final data-type of whatever expression is provided to it.
+```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
+a = 1
+b = 5
+c = 6
 
-<br>
+b_squared = b ** 2
+four_a_c = 4 * a * c
+two_a = a * 2
 
-Let's see some examples!
+solution_1 = (-b + (b_squared - four_a_c) ** 0.5) / two_a
+solution_2 = (-b - (b_squared - four_a_c) ** 0.5) / two_a
 
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-print(type(5))
-print(type(1.5))
-print(type("Hello!"))
+a = 2
+b = -3
+c = 1
+
+b_squared = b ** 2
+four_a_c = 4 * a * c
+two_a = a * 2
+
+solution_1 = (-b + (b_squared - four_a_c) ** 0.5) / two_a
+solution_2 = (-b - (b_squared - four_a_c) ** 0.5) / two_a
+
+a = 1
+b = 4
+c = 5
+
+b_squared = b ** 2
+four_a_c = 4 * a * c
+two_a = a * 2
+
+solution_1 = (-b + (b_squared - four_a_c) ** 0.5) / two_a
+solution_2 = (-b - (b_squared - four_a_c) ** 0.5) / two_a
 ```
 
+<twemoji-fearful-face v-drag="[787,403,96,89]" />
+
+---
+layout: section
+color: bowdoin
+---
+
+### This will get *really* annoying...
+
 <br>
 
-For right now, we can ignore the `class` part of the output and focus on the right-hand section.  
+### It would be so much easier if we could define a new 'word' in our programming language that means "Solve the quadratic equation of an equation with these coefficients"!
 
-In it, we see our familiar `int`, `float`, and `str`!
+<twemoji-angry-face v-drag="[787,403,96,89]" />
 
 ---
 layout: top-title
@@ -102,90 +143,28 @@ color: bowdoin-title
 
 :: title ::
 
-# Types of Variables
+# A solution!
 
 :: content ::
 
-<br>
-
-Variables store the type of data they hold but will update as their data changes:
-
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-answer = 5 + 5
-print("answer's type is", type(answer))
-
-answer = 7.5 - 2.3
-print("answer's type is", type(answer))
-
-answer = "I don't know"
-print("answer's type is", type(answer))
-```
-
----
-layout: top-title
-color: bowdoin-title
----
-
-:: title ::
-
-# Expressions with Different Types
-
-:: content ::
+#### ==Functions== allow us to do just that! We can create our own 'mini-programs' with their own names, inputs, and outputs and execute them using those names we decide!
 
 <br>
 
-Sometimes, expressions involve multiple types.
+To create a function, we use the `def` keyword followed by the function name (follows the same rules as variable names), and a set of parentheses.
 
-When this happens, the result will usually be the "larger" of the types.  
+Within the parenthesis, we can create variables that the mini-program expects as inputs - these are called parameters.
 
-This ensures that if you end up outside the range of the "smaller" type you will still get a valid answer.
+Finally, we write a colon `:` to signify the start of the function's 'body'.
 
-<br>
+Everything we want to be a part of the functions definition must be ==indented== over by one level.
 
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-answer = 7.5 - 2 # 7.5 is a float and 2 is an int
-print(answer, type(answer))
-```
+```python
+def my_function(a):
+    # Code within my_function
+    # More code within my_function
 
-<br>
-
-`int` is considered "smaller" than `float` because it can't store as many unique values.
-
-Due to this,  we will always get a `float` when evaluating an arithmetic operation that mixes the two.
-
----
-layout: side-title
-titlewidth: is-2
-align: cm-lm
-color: bowdoin-title
----
-
-:: title ::
-
-# Division
-
-:: content ::
-
-The division breaks this rule slightly.
-
-<br>
-
-Whenever we use the `/` operator, we will always get back a `float` result.
-
-This happens even if the two operands are `int`.
-
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-answer = 4 / 2
-print(answer, type(answer))
-```
-
-<br>
-
-If you want the possibility of getting an `int`, you must use the `//` operator:
-
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-answer = 4 // 2
-print(answer, type(answer))
+# Code outside of my_function
 ```
 
 ---
@@ -195,28 +174,22 @@ color: bowdoin-title
 
 :: title ::
 
-# Different behavior for different things
+# Returning
 
 :: content ::
 
-<br>
-
-Sometimes, we reuse the same operators for different types of data.
+#### Functions can perform any action and can ==evaluate== to their result.
 
 <br>
 
-A simple example of this is how we can use the `+` operator on `str` data!
+To have a function evaulate to it's final result, we can use a `return` statement.
 
-This "joins" or ==concatenates== the two strings together!
+However, once again we can experience that same issue of the computer doing exactly what we tell it. This code only *defines* the function, it never says to execute it!
 
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-answer = "Mon" + "day"
-print(answer)
+```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
+def my_function(a):
+    return a * 2
 ```
-
-<br>
-
-This is kind of similar to what `+` does to numbers but acts differently for a different type of data.
 
 ---
 layout: top-title
@@ -225,70 +198,85 @@ color: bowdoin-title
 
 :: title ::
 
-# Type incompatibilities
+# Function call
 
 :: content ::
 
+#### To execute a function, we must use its name followed by a set of parentheses.
+
 <br>
 
-Sometimes, we run into a situation where we cannot perform the operation we want because some of the data isn't the matching type for what we want to do:
+We must ensure we provide an ==argument== for each of the parameters the function is expecting.
 
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-# It is not possible to 'add' strings and other types
-answer = "The temperature is " + 58.5
+However, if we do so, the "function call" becomes an expression we can reuse in our code!
+
+```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
+def my_function(a):
+    return a * 2
+
+print(my_function(5))
+print(my_function(2.4))
 ```
 
-<br>
-
-In these situations, we can ask the computer to convert a value from one type to another.
-
-This is referred to as ==type casting==.
-
 ---
-layout: side-title
-titlewidth: is-2
-align: cm-lm
+layout: top-title
 color: bowdoin-title
 ---
 
 :: title ::
 
-# Type casting
+# Quadratic Function
 
 :: content ::
 
-To type cast in Python, we use the name of the type we want to convert to like a function and pass in what we want to convert.
+#### Let's use this information to create two new `quadratic` functions!
 
-For example:
+```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
+# Our process for solving a quadratic equation needs the coefficients! We need a, b, and c to be inputs.
+def quadratic_plus_solution(a, b, c):
+    b_squared = b ** 2
+    four_a_c = 4 * a * c
+    two_a = a * 2
 
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-print(type(str(5)))       # Converts the int value 5 into the string "5"
-print(type(float("3.5"))) # Converts the string "3.5" into the float value 3.5
-print(type(int(3.0)))     # Converts the float value 3.0 into the int value 3
+    return (-b + (b_squared - four_a_c) ** 0.5) / two_a
+
+def quadratic_minus_solution(a, b, c):
+    b_squared = b ** 2
+    four_a_c = 4 * a * c
+    two_a = a * 2
+
+    return (-b - (b_squared - four_a_c) ** 0.5) / two_a
+
+print("The solutions are", quadratic_plus_solution(1, 5, 6), "and", quadratic_minus_solution(1, 5, 6))
+print("The solutions are", quadratic_plus_solution(2, -3, 1), "and", quadratic_minus_solution(2, -3, 1))
+print("The solutions are", quadratic_plus_solution(1, 4, 5), "and", quadratic_minus_solution(1, 4, 5))
 ```
 
-<br>
-
-This becomes especially important when the data coming into our program is being entered as text because the user is typing it in or it is coming from a file.
-
-We will need to convert those strings into their actual values in the correct type before we can use them
-
 ---
-layout: side-title
-titlewidth: is-2
-align: cm-lm
+layout: top-title
 color: bowdoin-title
 ---
 
 :: title ::
 
-# Limitations
+# Printing within a function vs Returning
 
 :: content ::
 
-Type casting only works if the value you are attempting to convert can be represented somehow as a value in the other type:
+#### It is extremely important that we understand the difference between these two!
 
-```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on'}}
-# The string value "Hello" cannot be represented as an int
-int("Hello")
+```python {monaco-run} {autorun:false, editorOptions: { lineNumbers:'on'}}
+def returns(a):
+    return 2 * a
+
+def prints(a):
+    print(2 * a)
+
+a = 5
+
+returns(a)
+prints(a)
+
+print(returns(a))
+print(prints(a))
 ```
