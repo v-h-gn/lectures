@@ -84,7 +84,7 @@ color: bowdoin-title
 
 :: title ::
 
-# The `type` Statement
+# The `type` function
 
 :: content ::
 
