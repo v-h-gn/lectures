@@ -34,7 +34,7 @@ In an image, each pixel is stored as three color values (red, green, and blue)<b
 
 The image itself is complex while the individual color values are simple.
 
-<img src="./mario.webp" v-drag="[688,171,290,183]" />
+<img src="/mario.webp" v-drag="[688,171,290,183]" />
 
 <br>
 
