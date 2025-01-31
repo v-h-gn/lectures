@@ -307,7 +307,7 @@ color: bowdoin-title
 
 <br>
 
-#### We can access individual peices of data inside a string using the `[]` (brackets)
+#### We can access individual pieces of data inside a string using the `[]` (brackets)
 
 <br>
 
