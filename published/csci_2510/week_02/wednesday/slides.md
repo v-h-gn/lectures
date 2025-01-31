@@ -344,7 +344,7 @@ color: bowdoin-title
 - Everybody is doing it
 - It won’t affect anyone (probably)
 - It is culturally acceptable in the industry/company
-- it would be bad for me if I don’t do it
+- It would be bad for me if I don’t do it
 - I won’t get caught
 - If I don't do it, someone else will
 - The law is not enforced
