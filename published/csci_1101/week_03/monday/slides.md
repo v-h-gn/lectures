@@ -32,7 +32,7 @@ color: bowdoin-title
 
 <br>
 
-#### In Python, they are always capitalized: `True` and `False`.
+#### In Python, they are always capitalized as `True` and `False`.
 
 <br>
 
@@ -54,7 +54,11 @@ color: bowdoin
 
 <br>
 
-#### By themselves? Probably not very often.. However, `True` and `False` are used heavily because they are the result of a new type of expression!
+<v-click>
+
+<h4>By themselves? Probably not very often.. However, `True` and `False` are used heavily because they are the result of a new type of expression!</h4>
+
+</v-click>
 
 <twemoji-thinking-face v-drag="[825,376,90,90]" />
 
@@ -75,12 +79,52 @@ color: bowdoin-title
 
 | Human Operator           | Python Symbol | Example Expression |
 | :----------------------: | :-----------: | :----------------: |
-| Equal to                 | `==`          | `5 == 5.0`           |
+| Equal to                 | <span v-mark="{ at: '+1', color: '#f00', type: 'box' }">`==`</span>| `5 == 5.0` |           
 | Not equal to             | `!=`          | `True != False`           |
 | Greater than             | `>`           | `7.0 > 3`            |
 | Less than                | `<`           | `"A" < "B"`            |
 | Greater than or equal to | `>=`          | `4 >= 4`           |
 | Less than or equal to    | `<=`          | `3.5 <= 5.0`           |
+
+---
+layout: side-title
+titlewidth: is-2
+align: cm-lm
+color: bowdoin-title
+---
+
+:: title ::
+
+# = vs ==
+
+:: content ::
+
+## There are two ways we use the *"equals"* operator.
+
+<br>
+
+```python
+x = 5
+```
+
+
+### `=` tells the computer to set the value in `x` equal to `5`.
+### We call this the ==assignment== operator!
+
+<br>
+<hr>
+<br>
+
+```python
+x == 5
+```
+
+### `=` asks the computer to check if `x` is equal to `5`.
+### We call this the ==equal-to== operator!
+
+<br>
+
+# It is critical that you do not mix these up!
 
 ---
 layout: top-title
@@ -135,7 +179,7 @@ color: bowdoin-title
 
 :: content ::
 
-#### An `if` statement, also called a "conditional" statement, allows us to ask questions about the state of data and *"conditionally"* execute code based the result.
+#### An `if` statement, also called a ==conditional== statement, allows us to ask questions about the state of data and *"conditionally"* execute code based the result.
 
 <br>
 
@@ -143,7 +187,7 @@ color: bowdoin-title
 
 <br>
 
-#### Any indented code under the if statement only executes if the expression (also called the condition) evaluates to `True`. If the condition is `False`, the code doesn't run!
+#### The indented code under an `if` statement only executes if the expression (called the ==condition==) evaluates to `True`. If the condition is `False`, the code doesn't run!
 
 
 ```python {monaco-run} {autorun:true, editorOptions: { lineNumbers:'on', fontSize:14}}
