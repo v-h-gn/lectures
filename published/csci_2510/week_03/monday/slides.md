@@ -233,7 +233,7 @@ color: bowdoin-title
 
 :: content ::
 
-#### As we talked about before, illegal copying is pervasive due to he Internet allows copies to spread quickly and widely!
+#### As we talked about before, illegal copying is pervasive due to the Internet allowing copies to spread quickly and widely!
 
 <br>
 
