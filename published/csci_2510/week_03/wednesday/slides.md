@@ -196,7 +196,7 @@ color: bowdoin-title
 
 <br>
 
-## They provide owners with exclusive rights for 20 years!
+## They provide owners with exclusive rights for 15 to 25 years depending on the type of patent (design, utility, pharmaceutical)!
 
 <br>
 
@@ -215,7 +215,7 @@ color: bowdoin-title
 
 :: content ::
 
-# Getting a patent is a very lengthy process defined by the Patent Act (35 U.S. Code).
+# Getting a patent is a very lengthy process defined by the ==Patent Act (35 U.S. Code)==.
 
 <br>
 
@@ -228,7 +228,11 @@ color: bowdoin-title
 
 <br>
 
-### ==How will trademarks and service marks affect / protect you?==
+### ==What is an example of a technical patent? Try to find some!==
+
+<br>
+
+### ==How will patents affect / protect you?==
 
 <twemoji-astonished-face v-drag="[856,397,96,89]" />
 
