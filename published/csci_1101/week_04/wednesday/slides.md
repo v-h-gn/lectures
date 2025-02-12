@@ -152,11 +152,11 @@ list_2: list[str] = ["two", "four", "six"]
 if 2 in list_1:
   print("2 is in list_1!")
 else:
-  print("2 is not in list_2!")
+  print("2 is not in list_1!")
 
 # We can compare lists together!
 if list_1 == list_2:
-  print("These two lists contain the same elements in the same roder!")
+  print("These two lists contain the same elements in the same order!")
 else:
   print("Something is different about these two lists!")
 
@@ -178,7 +178,7 @@ color: bowdoin-title
 ## Tuples support the same operators too!
 
 ```python {monaco-run} {editorOptions: {lineNumbers:'on', fontSize:12}}
-tuple_1: tuple[int] = (2.0, 4.0, 6.0)
+tuple_1: tuple[float] = (2.0, 4.0, 6.0)
 tuple_2: tuple[str] = (7, 3, 1)
 
 # We can use the in operator to check if something is in a tuple
@@ -189,7 +189,7 @@ else:
 
 # We can compare tuple together!
 if tuple_1 == tuple_2:
-  print("These two tuples contain the same elements in the same roder!")
+  print("These two tuples contain the same elements in the same order!")
 else:
   print("Something is different about these two tuples!")
 
@@ -294,8 +294,8 @@ color: bowdoin-title
 
 | Method        | Description                                                                 |
 | :-----------: | :-------------------------------------------------------------------------: |
-| `my_list.append(e)`   | Adds the given element `e` to the end of `my_list` |
-| `my_list.insert(i, e)`   | Adds the given element `e` to `my_list` at the index `i` |
+| `my_list.append(v)`   | Adds the given value `v` to the end of `my_list` |
+| `my_list.insert(i, v)`   | Adds the given value `v` to `my_list` at the index `i` |
 | `my_list.remove(v)`   | Removes the first occurrence of the value `v` from `my_list` |
 | `my_list.pop(i)`| Removes the element at the index `i` from `my_list` |
 | `my_list.clear()`  | Removes everything from `my_list`  |
