@@ -59,7 +59,7 @@ color: bowdoin-title
 
 # Recall, copyright protects works of <u>tangible expression</u>
 
-### Not ideas, facts, ideas, systems, or methods of operation!
+### Not ideas, facts, systems, or methods of operation!
 
 <br>
 <br>
@@ -206,36 +206,6 @@ color: bowdoin
 <br>
 
 ### ==Do you agree with these stipulations?==
-
----
-layout: top-title
-color: bowdoin-title
----
-
-:: title ::
-
-# Open Source and Code Copyright
-
-:: content ::
-
-### If you don't mind making your process available and only want to protect your implementation, you may decide to make your code ==Open Source==!
-
-<br>
-
-## Open source code is available for anyone to look at and/or use
-### However a license may be attached to it
-
-<br>
-
-### ==Have you ever looked at Open Source code?==
-
-<twemoji-thinking-face v-drag="[851,287,96,89]" />
-
----
-layout: iframe
-url: https://choosealicense.com/licenses/
-title: Source Code Licenses
----
 
 ---
 layout: section
