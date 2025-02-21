@@ -57,7 +57,7 @@ color: bowdoin-title
 <br>
 
 ## Oracle v. Google 2021
-### Google’s copying of 11,500 lines of source code from 37 Java API packages was not fair use and violated Oracle’s copyright
+### Google’s copying of 11,500 lines of source code from 37 Java API packages for Android constituted fair use and did not violated Oracle’s copyright
 
 ---
 layout: section
