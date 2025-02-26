@@ -130,7 +130,7 @@ color: bowdoin
 
 <br>
 
-### ==What do yo think malware is?==
+### ==What do you think malware is?==
 
 <br>
 
