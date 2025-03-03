@@ -470,7 +470,7 @@ color: bowdoin-title
 
 :: content ::
 
-# Cross Site Scripting or XSS enabled code to be injected into a website's source code!
+# Cross Site Scripting or XSS enables code to be injected into a website's source code and any connected clients!
 
 ### This is the technique used by Samy's MySpace worm!
 
@@ -486,6 +486,22 @@ user_input = "<script>alert('Hi!')</script>"
 print(user_input)
 print(bleach.clean(user_input))
 ```
+
+---
+layout: section
+color: bowdoin
+---
+
+### ==What was the most surprising aspect of today?==
+
+<br>
+
+### ==What was the most scary aspect of today?==
+
+<br>
+
+### ==What obligations do you think you have==
+ ### ==as a developer in regards to security?==
 
 ---
 layout: section
