@@ -157,6 +157,59 @@ jobs:
           # Clean up temporary files
           rm "$temp_links_file"
 
+      - name: Build directory navigation page
+        run: |
+          # Create a new HTML file for directory navigation
+          cat << 'EOF' > build/structure.html
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="./index.css">
+            <title>Lecture Directory Navigation</title>
+          </head>
+          <body>
+            <h1>Lecture Directory Navigation</h1>
+          EOF
+
+          # Define a recursive function to generate a nested list based on directories
+          generate_list() {
+            local dir_path="$1"
+            echo "<ul>" >> build/structure.html
+            # Loop over items in the given directory (only directories)
+            for entry in "$dir_path"/*; do
+              if [ -d "$entry" ]; then
+                # Remove the build/ prefix so that links are relative
+                relative_entry=$(echo "$entry" | sed 's|^build/||')
+                echo "  <li><a href=\"${relative_entry}/\">$(basename "$entry")</a>" >> build/structure.html
+                # Recursively generate nested list for subdirectories
+                generate_list "$entry"
+                echo "  </li>" >> build/structure.html
+              fi
+            done
+            echo "</ul>" >> build/structure.html
+          }
+
+          # Only process the directories that are lectures.
+          # Assuming that build/ contains index.html, index.css, and the lecture directories,
+          # we call generate_list for each directory in build/ (ignoring files).
+          echo "<div class=\"directory-tree\">" >> build/structure.html
+          for item in build/*; do
+            if [ -d "$item" ]; then
+              relative_item=$(echo "$item" | sed 's|^build/||')
+              echo "<h2><a href=\"${relative_item}/\">${relative_item}</a></h2>" >> build/structure.html
+              generate_list "$item"
+            fi
+          done
+          echo "</div>" >> build/structure.html
+
+          # Finish the HTML file
+          cat << 'EOF' >> build/structure.html
+          </body>
+          </html>
+          EOF
+
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
