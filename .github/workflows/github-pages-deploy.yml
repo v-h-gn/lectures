@@ -157,29 +157,47 @@ jobs:
           # Clean up temporary files
           rm "$temp_links_file"
 
-      - name: Generate file explorer navigators recursively
+      - name: Generate file explorer navigators from published
         shell: bash
         run: |
+          # Function: Generate explorer page for a given published directory.
           generate_explorer() {
-            current_dir="$1"
-            # Compute depth: number of '/' minus one (for "build" being the root)
-            depth=$(echo "$current_dir" | awk -F'/' '{print NF-1}')
-            if [ "$current_dir" = "build" ]; then
+            published_dir="$1"
+            # Compute the relative path within published (strip "published/" prefix)
+            relative_dir="${published_dir#published/}"
+            # Determine the corresponding build directory.
+            if [ -z "$relative_dir" ]; then
+              build_dir="build"
+            else
+              build_dir="build/$relative_dir"
+            fi
+            mkdir -p "$build_dir"
+            
+            # Compute depth (number of subdirectories) for CSS linking.
+            if [ "$build_dir" = "build" ]; then
               depth=0
+            else
+              depth=$(echo "$relative_dir" | awk -F'/' '{print NF}')
             fi
             relative_css=""
             for ((i=0; i<depth; i++)); do
               relative_css="../$relative_css"
             done
-
-            if [ "$current_dir" = "build" ]; then
+            
+            # Set a display name.
+            if [ -z "$relative_dir" ]; then
               display_path="Home"
             else
-              display_path="${current_dir#build/}"
+              display_path="$relative_dir"
             fi
-
-            output_file="$current_dir/explorer.html"
-            # Begin writing to the explorer.html file.
+            
+            # If the published directory already contains an index.html, do not generate an explorer.
+            if [ -f "$published_dir/index.html" ]; then
+              return
+            fi
+            
+            output_file="$build_dir/explorer.html"
+            # Build the explorer.html using echo.
             echo "<!DOCTYPE html>" > "$output_file"
             echo "<html lang=\"en\">" >> "$output_file"
             echo "<head>" >> "$output_file"
@@ -197,41 +215,46 @@ jobs:
             echo "</head>" >> "$output_file"
             echo "<body>" >> "$output_file"
             echo "  <h1>File Explorer - ${display_path}</h1>" >> "$output_file"
-
-            # Add an "Up" link if not in the root directory.
-            if [ "$current_dir" != "build" ]; then
+            
+            # Add an "Up" link if this is not the root of published.
+            if [ "$published_dir" != "published" ]; then
               echo "  <p><a href=\"../explorer.html\">Up</a></p>" >> "$output_file"
             fi
-
+            
             echo "  <ul>" >> "$output_file"
-
-            # List immediate directories with links to their explorer.html.
-            for entry in "$current_dir"/*; do
+            
+            # Process each immediate entry (directories and files) in this published directory.
+            for entry in "$published_dir"/*; do
               if [ -d "$entry" ]; then
                 name=$(basename "$entry")
-                echo "    <li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$output_file"
+                # If the child directory has an index.html, link to it; otherwise, link to its explorer.
+                if [ -f "$entry/index.html" ]; then
+                  echo "    <li>[DIR] <a href=\"$name/index.html\">$name</a></li>" >> "$output_file"
+                else
+                  echo "    <li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$output_file"
+                fi
               fi
             done
-
-            # List immediate files, excluding explorer.html.
-            for entry in "$current_dir"/*; do
+            
+            # List immediate files, excluding explorer.html and index.html.
+            for entry in "$published_dir"/*; do
               if [ -f "$entry" ]; then
                 file=$(basename "$entry")
-                if [ "$file" != "explorer.html" ]; then
+                if [ "$file" != "explorer.html" ] && [ "$file" != "index.html" ]; then
                   echo "    <li>[FILE] <a href=\"$file\">$file</a></li>" >> "$output_file"
                 fi
               fi
             done
-
+            
             echo "  </ul>" >> "$output_file"
             echo "</body>" >> "$output_file"
             echo "</html>" >> "$output_file"
           }
-
+          
           export -f generate_explorer
-
-          # Process every directory under "build" (deepest first).
-          find build -type d | sort -r | while read -r dir; do
+          
+          # Recursively process every directory under "published" (deepest first).
+          find published -type d | sort -r | while read -r dir; do
             generate_explorer "$dir"
           done
 
