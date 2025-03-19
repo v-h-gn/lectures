@@ -158,30 +158,25 @@ jobs:
           rm "$temp_links_file"
 
       - name: Generate file explorer navigators recursively
-        if: env.index_css_modified == 'true' || env.modified_dirs != '' || env.common_md_modified == 'true'
         run: |
-          # This function creates an explorer.html in the given directory.
           generate_explorer() {
             current_dir="$1"
-            # Compute how many levels deep we are so that we can link correctly to index.css.
-            # “build” is assumed to be the root.
+            # Compute depth: number of '/' minus one (for "build" being the root)
             depth=$(echo "$current_dir" | awk -F'/' '{print NF-1}')
-            # For "build" the depth is 0
             if [ "$current_dir" = "build" ]; then depth=0; fi
             relative_css=""
             for ((i=0; i<depth; i++)); do
               relative_css="../$relative_css"
             done
 
-            # Compute a display-friendly path name.
             if [ "$current_dir" = "build" ]; then
               display_path="Home"
             else
               display_path="${current_dir#build/}"
             fi
 
-            # Create explorer.html for this directory.
-            cat << EOF > "$current_dir/explorer.html"
+            # Write initial HTML content to explorer.html in the current directory.
+            cat <<EOF > "$current_dir/explorer.html"
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -200,10 +195,10 @@ jobs:
             <body>
               <h1>File Explorer - ${display_path}</h1>
             EOF
-  
-            # If not at the root, add an "up" link.
+
+            # If not in the root folder, add an "Up" link.
             if [ "$current_dir" != "build" ]; then
-              echo "  <p><a href=\"../explorer.html\">Up</a></p>" >> "$current_dir/explorer.html"
+              echo '  <p><a href="../explorer.html">Up</a></p>' >> "$current_dir/explorer.html"
             fi
 
             echo "  <ul>" >> "$current_dir/explorer.html"
@@ -216,7 +211,7 @@ jobs:
               fi
             done
 
-            # List immediate files (ignoring explorer.html to avoid self-referencing).
+            # List immediate files (ignoring explorer.html to avoid self-reference).
             for entry in "$current_dir"/*; do
               if [ -f "$entry" ]; then
                 file=$(basename "$entry")
@@ -226,22 +221,18 @@ jobs:
               fi
             done
 
-            cat << 'EOF' >> "$current_dir/explorer.html"
-            </ul>
-          </body>
-          </html>
-          EOF
+            echo "  </ul>" >> "$current_dir/explorer.html"
+            echo "</body>" >> "$current_dir/explorer.html"
+            echo "</html>" >> "$current_dir/explorer.html"
           }
-  
-          # Export the function so it can be used in a subshell if needed.
+
           export -f generate_explorer
-  
-          # Recursively find every directory under build and create an explorer page.
-          # Sorting in reverse order ensures that subdirectories are processed first.
+
+          # Process every directory under "build" (deepest first)
           for dir in $(find build -type d | sort -r); do
             generate_explorer "$dir"
           done
-        shell: bash  
+        shell: bash
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
