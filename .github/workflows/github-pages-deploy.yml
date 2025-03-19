@@ -158,6 +158,7 @@ jobs:
           rm "$temp_links_file"
 
       - name: Generate file explorer navigators recursively
+        shell: bash
         run: |
           generate_explorer() {
             current_dir="$1"
@@ -177,37 +178,37 @@ jobs:
 
             # Write initial HTML content to explorer.html in the current directory.
             cat <<EOF > "$current_dir/explorer.html"
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-              <meta charset="UTF-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <link rel="stylesheet" href="${relative_css}index.css">
-              <title>File Explorer - ${display_path}</title>
-              <style>
-                body { font-family: sans-serif; margin: 20px; }
-                ul { list-style-type: none; padding: 0; }
-                li { padding: 5px; margin: 2px 0; }
-                a { text-decoration: none; color: #0366d6; }
-                a:hover { text-decoration: underline; }
-              </style>
-            </head>
-            <body>
-              <h1>File Explorer - ${display_path}</h1>
-            EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="${relative_css}index.css">
+  <title>File Explorer - ${display_path}</title>
+  <style>
+    body { font-family: sans-serif; margin: 20px; }
+    ul { list-style-type: none; padding: 0; }
+    li { padding: 5px; margin: 2px 0; }
+    a { text-decoration: none; color: #0366d6; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1>File Explorer - ${display_path}</h1>
+EOF
 
             # If not in the root folder, add an "Up" link.
             if [ "$current_dir" != "build" ]; then
-              echo '  <p><a href="../explorer.html">Up</a></p>' >> "$current_dir/explorer.html"
+              echo '<p><a href="../explorer.html">Up</a></p>' >> "$current_dir/explorer.html"
             fi
 
-            echo "  <ul>" >> "$current_dir/explorer.html"
+            echo "<ul>" >> "$current_dir/explorer.html"
 
             # List immediate directories (with a link to their explorer.html).
             for entry in "$current_dir"/*; do
               if [ -d "$entry" ]; then
                 name=$(basename "$entry")
-                echo "    <li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$current_dir/explorer.html"
+                echo "<li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$current_dir/explorer.html"
               fi
             done
 
@@ -216,12 +217,12 @@ jobs:
               if [ -f "$entry" ]; then
                 file=$(basename "$entry")
                 if [ "$file" != "explorer.html" ]; then
-                  echo "    <li>[FILE] <a href=\"$file\">$file</a></li>" >> "$current_dir/explorer.html"
+                  echo "<li>[FILE] <a href=\"$file\">$file</a></li>" >> "$current_dir/explorer.html"
                 fi
               fi
             done
 
-            echo "  </ul>" >> "$current_dir/explorer.html"
+            echo "</ul>" >> "$current_dir/explorer.html"
             echo "</body>" >> "$current_dir/explorer.html"
             echo "</html>" >> "$current_dir/explorer.html"
           }
@@ -229,10 +230,10 @@ jobs:
           export -f generate_explorer
 
           # Process every directory under "build" (deepest first)
-          for dir in $(find build -type d | sort -r); do
+          find build -type d | sort -r | while read -r dir; do
             generate_explorer "$dir"
           done
-        shell: bash
+
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
