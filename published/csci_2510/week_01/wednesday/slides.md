@@ -3,6 +3,7 @@ layout: intro
 theme: neversink
 color: bowdoin
 routerMode: hash
+favicon: https://avatars.githubusercontent.com/u/9260792
 ---
 
 # Welcome to CSCI: 2510 👋
