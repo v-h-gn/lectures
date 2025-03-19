@@ -3,6 +3,7 @@ layout: cover
 theme: neversink
 color: bowdoin
 routerMode: hash
+favicon: https://avatars.githubusercontent.com/u/9260792
 ---
 
 ## Expressions, Variables, and Printing
