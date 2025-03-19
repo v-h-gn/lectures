@@ -157,58 +157,88 @@ jobs:
           # Clean up temporary files
           rm "$temp_links_file"
 
-      - name: Build directory navigation page
+      - name: Generate file explorer navigators recursively
         run: |
-          # Create a new HTML file for directory navigation
-          cat << 'EOF' > build/structure.html
-          <!DOCTYPE html>
-          <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="./index.css">
-            <title>Lecture Directory Navigation</title>
-          </head>
-          <body>
-            <h1>Lecture Directory Navigation</h1>
-          EOF
+          # This function creates an explorer.html in the given directory.
+          generate_explorer() {
+            current_dir="$1"
+            # Compute how many levels deep we are so that we can link correctly to index.css.
+            # “build” is assumed to be the root.
+            depth=$(echo "$current_dir" | awk -F'/' '{print NF-1}')
+            # For "build" the depth is 0
+            if [ "$current_dir" = "build" ]; then depth=0; fi
+            relative_css=""
+            for ((i=0; i<depth; i++)); do
+              relative_css="../$relative_css"
+            done
 
-          # Define a recursive function to generate a nested list based on directories
-          generate_list() {
-            local dir_path="$1"
-            echo "<ul>" >> build/structure.html
-            # Loop over items in the given directory (only directories)
-            for entry in "$dir_path"/*; do
+            # Compute a display-friendly path name.
+            if [ "$current_dir" = "build" ]; then
+              display_path="Home"
+            else
+              display_path="${current_dir#build/}"
+            fi
+
+            # Create explorer.html for this directory.
+            cat << EOF > "$current_dir/explorer.html"
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <link rel="stylesheet" href="${relative_css}index.css">
+              <title>File Explorer - ${display_path}</title>
+              <style>
+                body { font-family: sans-serif; margin: 20px; }
+                ul { list-style-type: none; padding: 0; }
+                li { padding: 5px; margin: 2px 0; }
+                a { text-decoration: none; color: #0366d6; }
+                a:hover { text-decoration: underline; }
+              </style>
+            </head>
+            <body>
+              <h1>File Explorer - ${display_path}</h1>
+            EOF
+
+            # If not at the root, add an "up" link.
+            if [ "$current_dir" != "build" ]; then
+              echo "  <p><a href=\"../explorer.html\">Up</a></p>" >> "$current_dir/explorer.html"
+            fi
+
+            echo "  <ul>" >> "$current_dir/explorer.html"
+
+            # List immediate directories (with a link to their explorer.html).
+            for entry in "$current_dir"/*; do
               if [ -d "$entry" ]; then
-                # Remove the build/ prefix so that links are relative
-                relative_entry=$(echo "$entry" | sed 's|^build/||')
-                echo "  <li><a href=\"${relative_entry}/\">$(basename "$entry")</a>" >> build/structure.html
-                # Recursively generate nested list for subdirectories
-                generate_list "$entry"
-                echo "  </li>" >> build/structure.html
+                name=$(basename "$entry")
+                echo "    <li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$current_dir/explorer.html"
               fi
             done
-            echo "</ul>" >> build/structure.html
+
+            # List immediate files (ignoring explorer.html to avoid self-referencing).
+            for entry in "$current_dir"/*; do
+              if [ -f "$entry" ]; then
+                file=$(basename "$entry")
+                if [ "$file" != "explorer.html" ]; then
+                  echo "    <li>[FILE] <a href=\"$file\">$file</a></li>" >> "$current_dir/explorer.html"
+                fi
+              fi
+            done
+
+            echo "  </ul>" >> "$current_dir/explorer.html"
+            echo "</body>" >> "$current_dir/explorer.html"
+            echo "</html>" >> "$current_dir/explorer.html"
           }
 
-          # Only process the directories that are lectures.
-          # Assuming that build/ contains index.html, index.css, and the lecture directories,
-          # we call generate_list for each directory in build/ (ignoring files).
-          echo "<div class=\"directory-tree\">" >> build/structure.html
-          for item in build/*; do
-            if [ -d "$item" ]; then
-              relative_item=$(echo "$item" | sed 's|^build/||')
-              echo "<h2><a href=\"${relative_item}/\">${relative_item}</a></h2>" >> build/structure.html
-              generate_list "$item"
-            fi
-          done
-          echo "</div>" >> build/structure.html
+          # Export the function so it can be used in a subshell if needed.
+          export -f generate_explorer
 
-          # Finish the HTML file
-          cat << 'EOF' >> build/structure.html
-          </body>
-          </html>
-          EOF
+          # Recursively find every directory under build and create an explorer page.
+          # Sorting in reverse order ensures that subdirectories are processed first.
+          for dir in $(find build -type d | sort -r); do
+            generate_explorer "$dir"
+          done
+        shell: bash
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
