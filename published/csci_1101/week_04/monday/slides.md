@@ -6,7 +6,7 @@ routerMode: hash
 favicon: https://avatars.githubusercontent.com/u/9260792
 ---
 
-## Slices <twemoji-scissors />
+## Slices and String Methods <twemoji-scissors />
 
 <br>
 
@@ -37,9 +37,9 @@ color: bowdoin-title
 <br>
 
 
-| C | h | r | i | s |
-| - | - | - | - | - |
-| 0 | 1 | 2 | 3 | 4 |
+|  C  |  h  |  r  |  i  |  s  |
+| :-: | :-: | :-: | :-: | :-: |
+|  0  |  1  |  2  |  3  |  4  |
 
 <br>
 
@@ -60,26 +60,35 @@ color: bowdoin-title
 
 :: content ::
 
-<br>
-
 #### We can access multiple pieces of data inside a string using the `[]` (brackets) like so:
 
 <br>
 
-## `my_str[start:end]` where `start` is inclusive and `end` is exclusive!
+#### `my_str[start:end]` where `start` is inclusive and `end` is exclusive!
 
-<br>
+- #### `start` defaults to 0 if it is not provided!
 
-## `start` defaults to 0 if it is not provided!
+- #### `end` defaults to the length of the string if it is not provided!
 
-<br>
-
-## `end` defaults to the length of the string if it is not provided!
-
-<br>
-
-```python {monaco-run} {editorOptions: {lineNumbers:'on', fontSize:20}}
+```python {monaco-run} {editorOptions: {lineNumbers:'on', fontSize:16}}
 name = "Christopher Martin"
 
-print(name[0:4])
+print(name[5:9])
+print(name[:5])
+print(name[12:])
 ```
+
+---
+layout: top-title
+color: bowdoin-title
+---
+
+:: title ::
+
+# Slices
+
+:: content ::
+
+|  C  |  h  |  r  |  i  |  s  |  t  |  o  |  p  |  h  |  e  |  r  |    |  M  |  a  |  r  |  t  |  i  |  n  |
+| :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
