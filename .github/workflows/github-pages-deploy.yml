@@ -164,7 +164,9 @@ jobs:
             current_dir="$1"
             # Compute depth: number of '/' minus one (for "build" being the root)
             depth=$(echo "$current_dir" | awk -F'/' '{print NF-1}')
-            if [ "$current_dir" = "build" ]; then depth=0; fi
+            if [ "$current_dir" = "build" ]; then
+              depth=0
+            fi
             relative_css=""
             for ((i=0; i<depth; i++)); do
               relative_css="../$relative_css"
@@ -176,64 +178,62 @@ jobs:
               display_path="${current_dir#build/}"
             fi
 
-            # Write initial HTML content to explorer.html in the current directory.
-            cat <<EOF > "$current_dir/explorer.html"
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="${relative_css}index.css">
-  <title>File Explorer - ${display_path}</title>
-  <style>
-    body { font-family: sans-serif; margin: 20px; }
-    ul { list-style-type: none; padding: 0; }
-    li { padding: 5px; margin: 2px 0; }
-    a { text-decoration: none; color: #0366d6; }
-    a:hover { text-decoration: underline; }
-  </style>
-</head>
-<body>
-  <h1>File Explorer - ${display_path}</h1>
-EOF
+            output_file="$current_dir/explorer.html"
+            # Begin writing to the explorer.html file.
+            echo "<!DOCTYPE html>" > "$output_file"
+            echo "<html lang=\"en\">" >> "$output_file"
+            echo "<head>" >> "$output_file"
+            echo "  <meta charset=\"UTF-8\">" >> "$output_file"
+            echo "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" >> "$output_file"
+            echo "  <link rel=\"stylesheet\" href=\"${relative_css}index.css\">" >> "$output_file"
+            echo "  <title>File Explorer - ${display_path}</title>" >> "$output_file"
+            echo "  <style>" >> "$output_file"
+            echo "    body { font-family: sans-serif; margin: 20px; }" >> "$output_file"
+            echo "    ul { list-style-type: none; padding: 0; }" >> "$output_file"
+            echo "    li { padding: 5px; margin: 2px 0; }" >> "$output_file"
+            echo "    a { text-decoration: none; color: #0366d6; }" >> "$output_file"
+            echo "    a:hover { text-decoration: underline; }" >> "$output_file"
+            echo "  </style>" >> "$output_file"
+            echo "</head>" >> "$output_file"
+            echo "<body>" >> "$output_file"
+            echo "  <h1>File Explorer - ${display_path}</h1>" >> "$output_file"
 
-            # If not in the root folder, add an "Up" link.
+            # Add an "Up" link if not in the root directory.
             if [ "$current_dir" != "build" ]; then
-              echo '<p><a href="../explorer.html">Up</a></p>' >> "$current_dir/explorer.html"
+              echo "  <p><a href=\"../explorer.html\">Up</a></p>" >> "$output_file"
             fi
 
-            echo "<ul>" >> "$current_dir/explorer.html"
+            echo "  <ul>" >> "$output_file"
 
-            # List immediate directories (with a link to their explorer.html).
+            # List immediate directories with links to their explorer.html.
             for entry in "$current_dir"/*; do
               if [ -d "$entry" ]; then
                 name=$(basename "$entry")
-                echo "<li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$current_dir/explorer.html"
+                echo "    <li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$output_file"
               fi
             done
 
-            # List immediate files (ignoring explorer.html to avoid self-reference).
+            # List immediate files, excluding explorer.html.
             for entry in "$current_dir"/*; do
               if [ -f "$entry" ]; then
                 file=$(basename "$entry")
                 if [ "$file" != "explorer.html" ]; then
-                  echo "<li>[FILE] <a href=\"$file\">$file</a></li>" >> "$current_dir/explorer.html"
+                  echo "    <li>[FILE] <a href=\"$file\">$file</a></li>" >> "$output_file"
                 fi
               fi
             done
 
-            echo "</ul>" >> "$current_dir/explorer.html"
-            echo "</body>" >> "$current_dir/explorer.html"
-            echo "</html>" >> "$current_dir/explorer.html"
+            echo "  </ul>" >> "$output_file"
+            echo "</body>" >> "$output_file"
+            echo "</html>" >> "$output_file"
           }
 
           export -f generate_explorer
 
-          # Process every directory under "build" (deepest first)
+          # Process every directory under "build" (deepest first).
           find build -type d | sort -r | while read -r dir; do
             generate_explorer "$dir"
           done
-
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
