@@ -254,7 +254,6 @@ jobs:
           find published -type d | sort -r | while read -r dir; do
             generate_index "$dir"
           done
-  
 
       - name: Deploy slides 🚀
         uses: JamesIves/github-pages-deploy-action@v4
