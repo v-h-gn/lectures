@@ -83,7 +83,7 @@ print(list(range(1, 10, 0.5))) # ❌ Not possible!
 
 <br>
 
-### `range` also assumes `start` is less than `end`!
+### `range` also assumes `start` is less than `stop`!
 ```python {monaco-run} {editorOptions: {lineNumbers:'on', fontSize:14}}
 print(list(range(10, 3)))     # This doesn't create a decreasing range
 print(list(range(10, 3, -1))) # The step to be manually set to a negative value for a decreasing range
