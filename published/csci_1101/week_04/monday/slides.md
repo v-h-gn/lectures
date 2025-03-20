@@ -64,11 +64,11 @@ color: bowdoin-title
 
 <br>
 
-#### `my_str[start:end]` where `start` is inclusive and `end` is exclusive!
+#### `my_str[start:stop]` where `start` is inclusive and `stop` is exclusive!
 
 - #### `start` defaults to 0 if it is not provided!
 
-- #### `end` defaults to the length of the string if it is not provided!
+- #### `stop` defaults to the length of the string if it is not provided!
 
 ```python {monaco-run} {editorOptions: {lineNumbers:'on', fontSize:16}}
 name = "Christopher Martin"
