@@ -138,10 +138,10 @@ jobs:
             echo '  <meta charset="UTF-8">'
             echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">'
             echo '  <link rel="stylesheet" href="./index.css">'
-            echo '  <title>Flattened Lectures</title>'
+            echo '  <title>Flattened Lectures Directory</title>'
             echo '</head>'
             echo '<body class="container">'
-            echo '  <h1>Flattened Lectures</h1>'
+            echo '  <h1>Flattened Lectures Directory</h1>'
             echo '  <ul>'
 
             # Add sorted links to flattened.html
@@ -214,14 +214,14 @@ jobs:
             echo "  <link rel=\"stylesheet\" href=\"${relative_css}index.css\">" >> "$output_file"
             echo "  <title>Lectures - ${display_path}</title>" >> "$output_file"
             echo "</head>" >> "$output_file"
-            echo "<body>" >> "$output_file"
+            echo "<body class=\"container\">" >> "$output_file"
             echo "  <h1>Lectures - ${display_path}</h1>" >> "$output_file"
 
             echo "  <ul>" >> "$output_file"
 
             # Add an "Up" link if not at the root.
             if [ "$published_dir" != "published" ]; then
-              echo "    <li><a href=\"../index.html\">Up</a></li>" >> "$output_file"
+              echo "    <li><a href=\"../index.html\"><span title='Up'>⤴</span></a></li>" >> "$output_file"
             fi
 
             # Process each immediate entry in the published directory.
@@ -229,9 +229,9 @@ jobs:
               if [ -d "$entry" ]; then
                 name=$(basename "$entry")
                 if [ -f "$entry/slides.md" ]; then
-                  echo "    <li>/<a href=\"$name/\">$name</a></li>" >> "$output_file"
+                  echo "    <li><span title='Lecture'>👨‍🏫</span> <a href=\"$name/\">$name</a></li>" >> "$output_file"
                 else
-                  echo "    <li>/<a href=\"$name/index.html\">$name</a></li>" >> "$output_file"
+                  echo "    <li><span title='Directory'>📁</span><a href=\"$name/index.html\">$name</a></li>" >> "$output_file"
                 fi
               fi
               # elif [ -f "$entry" ]; then
