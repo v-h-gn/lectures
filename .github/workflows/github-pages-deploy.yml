@@ -108,7 +108,7 @@ jobs:
             done
           fi
 
-      - name: Build index.html
+      - name: Build flattened.html
         if: env.index_css_modified == 'true' || env.modified_dirs != '' || env.common_md_modified == 'true'
         run: |
           if [[ -f index.css ]]; then
@@ -138,13 +138,13 @@ jobs:
             echo '  <meta charset="UTF-8">'
             echo '  <meta name="viewport" content="width=device-width, initial-scale=1.0">'
             echo '  <link rel="stylesheet" href="./index.css">'
-            echo '  <title>Lectures</title>'
+            echo '  <title>Flattened Lectures</title>'
             echo '</head>'
             echo '<body class="container">'
-            echo '  <h1>Lecture Presentations</h1>'
+            echo '  <h1>Flattened Lectures</h1>'
             echo '  <ul>'
 
-            # Add sorted links to index.html
+            # Add sorted links to flattened.html
             for link in $sorted_links; do
               echo "    <li><a href=\"$link/\">$link</a></li>"
             done
@@ -152,15 +152,20 @@ jobs:
             echo '  </ul>'
             echo '</body>'
             echo '</html>'
-          } > build/index.html
+          } > build/flattened.html
 
           # Clean up temporary files
           rm "$temp_links_file"
 
-      - name: Generate explorer pages from published into build
+      - name: Build recursive index.html pages
         shell: bash
+        if: env.index_css_modified == 'true' || env.modified_dirs != '' || env.common_md_modified == 'true'
         run: |
-          generate_explorer() {
+          if [[ -f index.css ]]; then
+            mv index.css build/index.css
+          fi
+
+          generate_index() {
             published_dir="$1"
             # Remove the "published/" prefix to compute the relative path.
             relative_dir="${published_dir#published/}"
@@ -199,52 +204,43 @@ jobs:
               return
             fi
 
-            output_file="$build_dir/explorer.html"
+            output_file="$build_dir/index.html"
 
-            # Build the explorer.html using echo commands.
             echo "<!DOCTYPE html>" > "$output_file"
             echo "<html lang=\"en\">" >> "$output_file"
             echo "<head>" >> "$output_file"
             echo "  <meta charset=\"UTF-8\">" >> "$output_file"
             echo "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" >> "$output_file"
             echo "  <link rel=\"stylesheet\" href=\"${relative_css}index.css\">" >> "$output_file"
-            echo "  <title>File Explorer - ${display_path}</title>" >> "$output_file"
-            echo "  <style>" >> "$output_file"
-            echo "    body { font-family: sans-serif; margin: 20px; }" >> "$output_file"
-            echo "    ul { list-style-type: none; padding: 0; }" >> "$output_file"
-            echo "    li { padding: 5px; margin: 2px 0; }" >> "$output_file"
-            echo "    a { text-decoration: none; color: #0366d6; }" >> "$output_file"
-            echo "    a:hover { text-decoration: underline; }" >> "$output_file"
-            echo "  </style>" >> "$output_file"
+            echo "  <title>Lectures - ${display_path}</title>" >> "$output_file"
             echo "</head>" >> "$output_file"
             echo "<body>" >> "$output_file"
-            echo "  <h1>File Explorer - ${display_path}</h1>" >> "$output_file"
+            echo "  <h1>Lectures - ${display_path}</h1>" >> "$output_file"
+
+            echo "  <ul>" >> "$output_file"
 
             # Add an "Up" link if not at the root.
             if [ "$published_dir" != "published" ]; then
-              echo "  <p><a href=\"../explorer.html\">Up</a></p>" >> "$output_file"
+              echo "    <li><a href=\"../index.html\">Up</a></li>" >> "$output_file"
             fi
-
-            echo "  <ul>" >> "$output_file"
 
             # Process each immediate entry in the published directory.
             for entry in "$published_dir"/*; do
               if [ -d "$entry" ]; then
                 name=$(basename "$entry")
-                # If the child directory has a slides.md file, link directly to it;
-                # otherwise, link to its explorer page.
                 if [ -f "$entry/slides.md" ]; then
-                  echo "    <li>[DIR] <a href=\"$name/slides.md\">$name</a></li>" >> "$output_file"
+                  echo "    <li>/<a href=\"$name/\">$name</a></li>" >> "$output_file"
                 else
-                  echo "    <li>[DIR] <a href=\"$name/explorer.html\">$name</a></li>" >> "$output_file"
-                fi
-              elif [ -f "$entry" ]; then
-                file=$(basename "$entry")
-                # Skip explorer.html so as not to list it.
-                if [ "$file" != "explorer.html" ]; then
-                  echo "    <li>[FILE] <a href=\"$file\">$file</a></li>" >> "$output_file"
+                  echo "    <li>/<a href=\"$name/index.html\">$name</a></li>" >> "$output_file"
                 fi
               fi
+              # elif [ -f "$entry" ]; then
+              #   file=$(basename "$entry")
+              #   # Skip index.html so as not to list it.
+              #   if [ "$file" != "index.html" ]; then
+              #     echo "    <li>[FILE] <a href=\"$file\">$file</a></li>" >> "$output_file"
+              #   fi
+              # fi
             done
 
             echo "  </ul>" >> "$output_file"
@@ -252,11 +248,11 @@ jobs:
             echo "</html>" >> "$output_file"
           }
 
-          export -f generate_explorer
+          export -f generate_index
 
           # Recursively process every directory under published (deepest first).
           find published -type d | sort -r | while read -r dir; do
-            generate_explorer "$dir"
+            generate_index "$dir"
           done
   
 
