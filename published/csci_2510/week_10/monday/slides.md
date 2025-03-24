@@ -148,7 +148,7 @@ color: bowdoin-title
 
 ---
 layout: iframe-right
-url: http://hrlibrary.umn.edu/education/all_amendments_usconst.htm
+url: https://www.senate.gov/about/origins-foundations/senate-and-constitution/constitution.htm#amdt_1_(1791)
 ---
 
 ## Let's review the different Constitutional Amendments!
