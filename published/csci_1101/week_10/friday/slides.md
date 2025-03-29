@@ -302,8 +302,8 @@ A: set[int] = {1, 2, 4, 8, 16}
 B: set[int] = {1, 2, 3, 5, 8}
 C: set[int] = {1, 2, 3}
 
-print("A >= C:", A.issuperset(A))
-print("B >= C:", B.issuperset(B))
+print("A >= C:", A.issuperset(C))
+print("B >= C:", B.issuperset(C))
 ```
 
 :: right ::
