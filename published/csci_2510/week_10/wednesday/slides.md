@@ -162,11 +162,11 @@ color: bowdoin
 <br>
 
 ### ==How do you feel knowing these systems exist and==
-### ==are used on you daily?==
+### ==are used on you every day? What are the dangers?==
 
 <br>
 
-### ==Is that ethical?==
+### ==What do you think tech companies know about you?==
 
 ---
 layout: section
