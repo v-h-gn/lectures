@@ -90,11 +90,11 @@ color: bowdoin-title
 
 | Method        | Description                                                                 |
 | :----------- | :------------------------------------------------------------------------- |
-| `my_set.get(k)`   | Returns the value associated with the key `k` if it exists in `my_dict`, returns `None` or an optionally specified default value otherwise |
-| `my_set.keys()`   | Returns a list containing all of the keys from each pair in `my_dict` |
-| `my_set.values()`   | Returns a list containing all of the values from each pair in `my_dict` |
-| `my_set.items()`   | Returns a list containing all of the pairs in `my_dict` |
-| `my_set.pop(k)`   | Removes the pair with the specified key `k` from `my_dict`, returns the removed value associated with the key `k` but causes an error if `k` is not in `my_dict` |
+| `my_dict.get(k)`   | Returns the value associated with the key `k` if it exists in `my_dict`, returns `None` or an optionally specified default value otherwise |
+| `my_dict.keys()`   | Returns a list containing all of the keys from each pair in `my_dict` |
+| `my_dict.values()`   | Returns a list containing all of the values from each pair in `my_dict` |
+| `my_dict.items()`   | Returns a list containing all of the pairs in `my_dict` |
+| `my_dict.pop(k)`   | Removes the pair with the specified key `k` from `my_dict`, returns the removed value associated with the key `k` but causes an error if `k` is not in `my_dict` |
 | `my_dict.clear()`   | Removes all the pairs stored within `my_dict` |
 
 ---
