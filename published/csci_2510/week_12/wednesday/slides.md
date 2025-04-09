@@ -7,7 +7,7 @@ favicon: https://avatars.githubusercontent.com/u/9260792
 ---
 
 ## Professional Ethics <twemoji-thinking-face />
-#### Module 4: Privacy
+#### Module 5: Professional Ethics
 
 <br>
 
