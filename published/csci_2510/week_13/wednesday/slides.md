@@ -186,11 +186,11 @@ color: bowdoin-title
 
 :: title ::
 
-# Validation vs Verification
+# Verification vs Validation
 
 :: left ::
 
-# Validation
+# Verification
 ### The process of checking whether a system / its design meet the customer's required specifications
 
 <br>
@@ -199,7 +199,7 @@ color: bowdoin-title
 
 :: right ::
 
-# Verification
+# Validation
 ### The process of checking that a system correctly achieves its specific function without any issues
 
 <br>
