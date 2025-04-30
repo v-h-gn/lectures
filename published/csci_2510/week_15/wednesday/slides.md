@@ -53,7 +53,7 @@ color: bowdoin-title
 - #### New trends generate fear and anxiety
 - #### Employers use technology to monitor their employees
 
-### ==What fears, questions, and anxieties about the rise of generative AI?==
+#### ==What fears, questions, and anxieties do you have about the rise of generative AI?==
 
 <br>
 
