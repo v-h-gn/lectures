@@ -363,7 +363,7 @@ color: bowdoin-title
 
 <div v-drag="[135,79,706,443]">
 
-![](./hype.png)
+![](./public/hype.png)
 
 </div>
 
