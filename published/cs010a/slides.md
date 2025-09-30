@@ -28,6 +28,6 @@ layout: image-left
 ---
 
 ```yaml
-layout:: center
+layout: full
 ---
 
