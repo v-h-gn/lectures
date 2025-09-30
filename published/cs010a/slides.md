@@ -16,23 +16,21 @@ layout: image-left
 image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/vhgn-formatted.png?raw=true
 ```
 
-# Who am I?
+# About Me
 
-- Va-HAH-gun, like Va-Haagen Dazs.
-
-- 2nd Year PhD Student 
-
-- Research: computational biochemistry, lab tech automation
-
-- B.S. in CEN & Pure Math @ UCR 
-
-- 6 years of C++ experience
-
-- Former Supplemental Instructor (SI) and tutor.
+- va-HAH-gun, like va-Haagen Dazs.
 
 - Email: vtovm002@ucr.edu
 
 - Office Hours: TBD
+
+- 2nd Year PhD Student, B.S. in CEN & Pure Math from UCR 
+
+- Research: computational biochemistry, lab tech automation
+
+- 6 years of C++ experience
+
+- Fun Fact: I can speak 4 languages. 
 
 ---
 
@@ -44,12 +42,12 @@ layout: full
 - Being on time, attending every week. (Excessive lateness (>15 min) will get you points docked.)
 - Working in pairs. (assigned by TA via icebreaker, randomly, or hat-pull.)
 - Turn in your worksheet once you are done. (Don't use phones or laptops to look up answers.)
-- Leave only once you are done or stay and work on your Zybooks labs and exercises.
+- Leave when you are done or stay and work on your Zybooks labs and exercises. 
 
 # TA Expectations
 - Helping you learn C++ and succeed in this class.
-- Being prompt about submitting your grades.
 - Maintaining a safe and productive learning environment.
+- Being prompt about submitting your grades.
 ---
 
 ```yaml
@@ -58,22 +56,31 @@ layout: full
 
 # Review: Hello, CS010A! - C++ Output
 
-Let's review some of the basic elements of a C++ program before your exercises.
+Let's review some of the basic elements of a C++ program before your exercise.
 
-```cpp {hide|1-4|6|8|10,12|11}{lines:true}
+```cpp {hide|1-4|6-8|10,12|11}{lines:true}
 /*
-    Author: Vahagn Tovmasian
-    Date: 9/30/2025
-*/
+ *  Author: Vahagn Tovmasian
+ *  Date: 9/30/2025
+ */
 
 #include <iostream>
 
 using namespace std;
 
 int main() {
-    cout << "Hello, CS10A!" << endl;
+    cout << "Hello, CS010A!" << endl; // prints Hello to the class
 }
 ```
+
+<v-clicks>
+
+- Block comment
+- `#include` directive and `namespace`
+- `main` function header
+- Output stream (`cout`), print statement, `endl`, and line comment
+
+</v-clicks>
 
 
 
@@ -83,11 +90,11 @@ int main() {
 layout: full
 ```
 
-# Review: Multiple Sections? - C++ Input
+# Review: Many Sections? - C++ Input
 
 A lot of times, we want to be able to get data from the external world and give it to our program. 
 
-We do this via **input** statements, like `cin`. 
+In C++, we do this via **input streams** , like `cin`. 
 
 
 ```cpp {all|6,8|6,10}{lines:true}
@@ -98,12 +105,13 @@ using namespace std;
 int main() {
     int sectionNumber;
 
-    cin >> sectionNumber;
+    cin >> sectionNumber; // get section number from user
     
-    cout << "Hello, CS10A Lab Section " << sectionNumber << "!" << endl;
+    cout << "Hello, CS010A Lab Section " << sectionNumber << "!" << endl; // output Hello to specific lab section
 }
 
 ```
+<v-clicks>
 
 **TIP:** The _operator_ you use with  `cin` or `cout`, corresponds to the _direction_ you want to move data.
 
@@ -111,6 +119,7 @@ int main() {
 
 `cout` takes data from your variables/values and outputs it to the console. `cout << outputResult;`
 
+</v-clicks>
 
 ---
 
