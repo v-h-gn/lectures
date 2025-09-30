@@ -27,3 +27,7 @@ layout: image-left
 
 ---
 
+```yaml
+layout:: center
+---
+
