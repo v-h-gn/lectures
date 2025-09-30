@@ -124,7 +124,6 @@ int main() {
 - Using the wrong stream operator `<<` vs `>>`for `cout` and `cin`
 - Whitespace errors ex. `Hello World! `  vs `Hello World!`
 - Not using `endl` to print to a new line.
-- Overcomplicating the task.
 
 ---
 
