@@ -37,17 +37,32 @@ image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/vhgn-format
 ```yaml
 layout: full
 ```
+# About the Lab
+
+- Meets once a week for the entire quarter.
+- Reinforces what you learn in lecture via TA presentation and **In Lab Exercises (ILE)**
+- **ILEs** will be done in pairs on a worksheet I give you. 
+- **ILEs** will be graded based on **completion** and **effort**, not correctness.
+- There will be an opportunity to make up a missed lab later in the quarter.
+- You may attend another scheduled lab section **ONCE** this quarter by notifying us on EdStem, more details will be given later.
+
+---
+
+```yaml
+layout: full
+```
 # Student Expectations
 
-- Being on time, attending every week. (Excessive lateness (>15 min) will get you points docked.)
-- Working in pairs. (assigned by TA via icebreaker, randomly, or hat-pull.)
-- Turn in your worksheet once you are done. (Don't use phones or laptops to look up answers.)
-- Leave when you are done or stay and work on your Zybooks labs and exercises. 
+- Being on time, attending every week. 
+- Engaging with the material.
+- Collaborating with peers. One person should not be doing all of the work. 
+- Respecting your peers.
 
 # TA Expectations
 - Helping you learn C++ and succeed in this class.
 - Maintaining a safe and productive learning environment.
-- Being prompt about submitting your grades.
+- Providing effective and prompt feedback.
+
 ---
 
 ```yaml
@@ -56,32 +71,53 @@ layout: full
 
 # Review: Hello, CS010A! - C++ Output
 
-Let's review some of the basic elements of a C++ program before your exercise.
-
-```cpp {hide|1-4|6-8|10,12|11}{lines:true}
-/*
- *  Author: Vahagn Tovmasian
+```cpp {hide|1-3|4-5|7,10|8|9}{lines:true}
+/*  Author: Vahagn Tovmasian
  *  Date: 9/30/2025
  */
-
 #include <iostream>
-
 using namespace std;
 
 int main() {
     cout << "Hello, CS010A!" << endl; // prints Hello to the class
+    return 0;
 }
+```
+<v-clicks>
+
+- Block comment, group comment
+- `#include` directive and `namespace`
+- `main` function -> the first function to execute in any C++ program
+- Print statement, output statement, and line comment
+- `return` statement
+
+</v-clicks>
+
+---
+
+```yaml
+layout: full
+```
+
+# Review: Complex I/O - C++ Input
+I want to design a program which given 3 inputs, `sectionNumber`, `endingHour`, and `ending Minute` of my lab section, greets and tells the user how long until the lab is over in hours and also total minutes.
+
+I want the output to look like the following:
+
+For `28`, `1`, and `50`:
+
+```
+Hello, CS 010A Lab Section 28!
+Your lab ends in 1 hour(s) 50 minute(s).
+Total minutes: 110
 ```
 
 <v-clicks>
 
-- Block comment
-- `#include` directive and `namespace`
-- `main` function header
-- Output stream (`cout`), print statement, `endl`, and line comment
+- Can you help me come up with a plan for how to program this?
+- How can we test that the program is correct? 
 
 </v-clicks>
-
 
 
 ---
@@ -90,36 +126,29 @@ int main() {
 layout: full
 ```
 
-# Review: Many Sections? - C++ Input
-
-A lot of times, we want to be able to get data from the external world and give it to our program. 
-
-In C++, we do this via **input streams** , like `cin`. 
-
-
-```cpp {all|6,8|6,10}{lines:true}
+```cpp {hide|1-5|6,7|6-13|16|18|19}{lines:true}
 #include <iostream>
 
 using namespace std;
 
 int main() {
     int sectionNumber;
-
-    cin >> sectionNumber; // get section number from user
+    cin >> sectionNumber; // why are we using sectionNumber here?
     
-    cout << "Hello, CS010A Lab Section " << sectionNumber << "!" << endl; // output Hello to specific lab section
+    int endingHour;
+    cin >> endingHour;
+
+    int endingMinute;
+    cin >> endingMinute;
+
+    // output Hello for specific lab section
+    cout << "Hello, CS010A Lab Section " << sectionNumber << "!" << endl;
+    // output lab ending time and total minutes to user
+    cout << "Your lab ends in " << endingHour << " hour(s) " << endingMinute << " minute(s)." << endl;
+    cout << "Total minutes: " << endingHour * 60 + endingMinute << endl; 
+    return 0;
 }
-
 ```
-<v-clicks>
-
-**TIP:** The _operator_ you use with  `cin` or `cout`, corresponds to the _direction_ you want to move data.
-
-`cin` takes data from the console and puts it into a *variable*, so `cin >> variableName;`
-
-`cout` takes data from your variables/values and outputs it to the console. `cout << outputResult;`
-
-</v-clicks>
 
 ---
 
