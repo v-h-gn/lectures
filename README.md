@@ -1,6 +1,6 @@
 # Lectures
 
-Welcome to my PPT repository. This was originally developed by @ChristopherWMM for his lecturing and so I adapted a similar structure to host all of the presentations I give in one cohesive, accessible, location. 
+Welcome to my PPT repository. This was originally developed by @ChristopherWMM for his lecturing and so I adapted a similar structure to host all of the presentations I give in one cohesive accessible location. 
 
 ## Overview
 
