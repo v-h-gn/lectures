@@ -126,7 +126,7 @@ Total minutes: 110
 layout: full
 ```
 
-```cpp {hide|1-5|6,7|6-13|16|18|19}{lines:true}
+```cpp {hide|1-5|6,7|6-13|16|18|19|all}{lines:true}
 #include <iostream>
 
 using namespace std;
