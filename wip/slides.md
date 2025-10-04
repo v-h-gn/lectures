@@ -134,6 +134,23 @@ dragPos:
 
 <br>
 ---
-# Functions & Math
+
+```yaml
+layout: full
+transition: slide
+dragPos:
+  square: Left,Top,Width,Height,Rotate
+```
+# Math in C++: Arithmetic Expressions
+
+### Computers are _math_ machines. C++ supports all of the standard arithmetic operations (addition, subtraction, division, multiplication)
+
+<AdmonitionType title="Fun Fact" type="info" width="300px" custom="text-lg" v-drag="[68,396,808,77]">
+The term "computer" originally referred to humans who's job was to perform difficult arithmetic calculations.
+</AdmonitionType>
+
+![alt text](image-1.png)
+
+### C++ also supports many important elementary functions, like exponentiation, logarithms, trigonometric functions etc.
 
 --- 
