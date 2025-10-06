@@ -53,7 +53,7 @@ dragPos:
 layout: image-right
 dragPos:
   square: Left,Top,Width,Height,Rotate
-image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week2/example-code.png?raw=true
+image: https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs010a/week2/example-code.png
 backgroundSize: 25em 95%
 ```
 
