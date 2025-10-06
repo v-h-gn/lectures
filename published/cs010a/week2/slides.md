@@ -51,7 +51,7 @@ dragPos:
 
 ```yaml
 layout: image-right
-image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week2/example_code.png?raw=true
+image: h 
 backgroundSize: 25em 95%
 dragPos:
   square: Left,Top,Width,Height,Rotate
