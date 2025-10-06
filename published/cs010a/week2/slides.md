@@ -53,7 +53,7 @@ dragPos:
 layout: image-right
 dragPos:
   square: Left,Top,Width,Height,Rotate
-image: image.png
+image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week2/example_code.png?raw=true
 backgroundSize: 25em 95%
 ```
 
@@ -184,7 +184,7 @@ dragPos:
   square: Left,Top,Width,Height,Rotate
 addons:
   - slidev-addon-cpp-runner
-image: orderofoperations.png
+image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week2/orderofoperations.png?raw=true
 backgroundSize: 25em 55%
 ```
 
