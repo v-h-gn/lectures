@@ -305,6 +305,16 @@ addons:
 
 # Tips for the Labs
 
+Read instructions carefully
+
+Don't worry about formatting outputs with `setprecision()`
+
+# Expected/Common Errors
+
+Not understanding modulo operations
+
+Mixing up integer vs floating point division / not casting correctly.
+
 
 
 
@@ -312,10 +322,12 @@ addons:
 ---
 
 ```yaml
-layout: full
+layout: center
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
 addons:
   - slidev-addon-cpp-runner
 ```
+
+# Questions, Comments, Concerns, Quibbles?
