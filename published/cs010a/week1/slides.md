@@ -13,7 +13,7 @@ theme: neversink
 ```yaml
 # The first yaml block will be treated as the frontmatter of that slide
 layout: image-left
-image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/section021/week1/vhgn-formatted.png?raw=true
+image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week1/vhgn-formatted.png?raw=true
 ```
 
 # About Me
