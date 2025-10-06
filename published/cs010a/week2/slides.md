@@ -51,10 +51,10 @@ dragPos:
 
 ```yaml
 layout: image-right
-dragPos:
-  square: Left,Top,Width,Height,Rotate
 image: https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week2/example_code.png?raw=true
 backgroundSize: 25em 95%
+dragPos:
+  square: Left,Top,Width,Height,Rotate
 ```
 
 # Variables (cont'd)
