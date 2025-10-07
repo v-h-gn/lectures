@@ -161,14 +161,16 @@ In what situations would we need to do this?
 using namespace std;
 
 int main() {
-  int numDevicesVahagn = 4;
-  int numDevicesPrithviraj = 3;
-  int numDevicesMarios = 7; 
-  int numDevicesRB = 5;
-  int numDevicesYi = 2;
+  int vahagn_cakes_eaten = 1;
+  int prith_cakes_eaten = 3;
+  int marios_cakes_eaten = 1; 
+  int rb_cakes_eaten = 1;
+  int yi_cakes_eaten = 0;
 
-  cout << "Average Number of Devices: " << (numDevicesVahagn + numDevicesPrithviraj 
-                                          + numDevicesMarios + numDevicesRB + numDevicesYi) / 5 << endl;
+  cout << "Average Number of Mooncakes Eaten: " 
+       << (vahagn_cakes_eaten + prith_cakes_eaten 
+       + marios_cakes_eaten + rb_cakes_eaten + yi_cakes_eaten) / 5 
+       << endl;
   return 0;
 }
 ```
