@@ -128,12 +128,6 @@ dragPos:
 ### What are some of the types we've seen so far?
 
 
-- char, int, long, long long, short
-- float, double
-- string
-
-### Why is `char` grouped with the other numeric types and not w/ `string`?
-
 <br>
 ---
 
@@ -152,8 +146,6 @@ We use `static_cast<type>` to convert between types.
 
 Ex. `double current = static_cast<double>(voltage)/resistance`
 
-In what situations would we need to do this?
-
 <v-clicks>
 
 ```cpp {monaco-run}
@@ -162,11 +154,13 @@ using namespace std;
 
 int main() {
   int vahagn_cakes_eaten = 1;
-  int prith_cakes_eaten = 3;
-  int marios_cakes_eaten = 1; 
+  int prith_cakes_eaten = 4;
+  int marios_cakes_eaten = 2; 
   int rb_cakes_eaten = 1;
-  int yi_cakes_eaten = 0;
-
+  int yi_cakes_eaten = 1;
+  
+  // Inputs: 1,4,2,1,1
+  // Expected Output: 1.8
   cout << "Average Number of Mooncakes Eaten: " 
        << (vahagn_cakes_eaten + prith_cakes_eaten 
        + marios_cakes_eaten + rb_cakes_eaten + yi_cakes_eaten) / 5 
@@ -194,17 +188,22 @@ backgroundSize: 25em 55%
 
 C++ supports $+, -, \times{}, /$ and modulo $\%$.  
 
-These standard operators also have compound versions: `+=, -=, *=, /=, %=`
+Modulo might seem new, but all it does is compute the remainder of division between *integers*.
 
-Ex. `a *= b` is equivalent to `a = a * b`
+**Exercises:**
+
+`100 % 9 = `
+
+`35 % 5 = ` 
+    
+`12 % 8 =`
+
+`2025 % 1 =`
 
  `#include <cmath>` allows you to use functions like `sin, sinh, log, ln, sqrt(x), pow(x,b)` and others
 
  That's all you need to do math in C++!
 
-<AdmonitionType title="Fun Fact" type="info" width="300px" v-drag="[102,389,338,99]">
-Compound operators in C++ are an example of <b>syntactic sugar</b>. Syntactic sugar is syntax which makes writing code easier w/o introducing new functionality.
-</AdmonitionType>
 
 ---
 
@@ -271,9 +270,11 @@ addons:
 
 Numbers with fractional parts (1.5, 3.14, 2.71828, etc) are represented using `float` and `double` in C++.
 
-`double` is more precise than `float` ($2^{-53}$ vs $2^{-23}$)
+What's the difference? `double` is more precise than `float`. (16 decimal places vs 7 decimal places)
 
-We use `fixed` to output floating points in fixed point notation. 
+Floating point is like scientific notation: ($100.1 \iff 1.001 * 10^2$)
+
+We use `fixed` to output floating point in fixed point notation. 
 
 `setprecision(int)` sets the number decimal figures printed equal to the integer you pass into it.
 
@@ -290,8 +291,8 @@ int main() {
 }
 ```
 
-<AdmonitionType title="Note" type="caution" width="300px" v-drag="[593,277,197,152]">
-Floating point calculations often have rounding and truncation errors. This can lead to computed answers being off from the real solution.
+<AdmonitionType title="Note" type="caution" width="300px" v-drag="[572,361,318,93]">
+Do not confuse floating point with float. If an instruction says use float, you must use the float type, you may not use double.
 </AdmonitionType>
 
 ---
@@ -314,6 +315,8 @@ Don't worry about formatting outputs with `setprecision()`
 # Expected/Common Errors
 
 Not understanding modulo operations
+
+Order of operations, forgetting parentheses.
 
 Mixing up integer vs floating point division / not casting correctly.
 
