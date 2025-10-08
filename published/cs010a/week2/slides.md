@@ -10,6 +10,24 @@ addons:
 ## 10/07/2025 
 
 ---
+layout: iframe-right
+transition: slide
+theme: neversink
+url: https://ula.cs.ucr.edu/
+---
+# Announcements
+
+<br>
+
+### - ULA
+<br>
+
+### - Office Hours: Friday 3-5pm
+<br>
+
+### - WRC CSES 
+
+---
 
 ```yaml
 layout: full
