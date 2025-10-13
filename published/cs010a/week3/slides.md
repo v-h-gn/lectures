@@ -23,7 +23,7 @@ dragPos:
 - Good luck on your Quiz!
 - Changing my office hours.
 
-<div v-drag="[130,89,700,392]">
+<div v-drag="[443,77,498,367]">
 
 ![](https://github.com/v-h-gn/lectures/blob/main/published/cs010a/week3/image.png?raw=true)
 
@@ -47,7 +47,7 @@ A Boolean expression is a statement containing Boolean values and logical operat
 Ex. `x > 1`, `true OR (y AND z)`
 
 
-<AdmonitionType title="Warning" type="caution" width="300px" custom="text-lg" v-drag="[50,261,808,77]">
+<AdmonitionType title="Warning" type="caution" width="300px" custom="text-lg" v-drag="[75,253,808,101]">
 Booleans in C++ are really just integers, where zero is interpreted as false and anything else is true. Be wary of order of operations in Boolean expressions.
 </AdmonitionType>
 
@@ -60,9 +60,9 @@ dragPos:
   square: Left,Top,Width,Height,Rotate
 ```
 
-# Branch Syntax
+# If-Else Syntax
 
-**Branch** instructions are used to change the flow of our program based on state or inputs.
+_Branch_ instructions are used to change the flow of our program based on state or inputs.
 
 In C++, this is accomplished with `if`-`else` statements.
 
@@ -77,6 +77,10 @@ if (condition1) {
     // run this section
 }
 ```
+
+<AdmonitionType title="Note" type="info" width="300px" custom="text-lg" v-drag="[476,417,307,108]">
+Cascading chains of ifs, else ifs, and elses are called <b>if-else ladders</b>.
+</AdmonitionType>
 
 ---
 
@@ -126,7 +130,7 @@ dragPos:
 
 # Comparison Operators
 
-C++ allows us to use comparison operators like `>`, `>=`, `==`, `<=`, `<` to compare values and return a bool.
+C++ allows us to use comparison operators like `>`, `>=`, `==`, `<=`, `<` to compare values and return a bool (true if the comparison is valid, false otherwise).
 
 ```cpp {all}{class:'!children:text-2xl'}
 // ropeLength is a float
@@ -226,7 +230,7 @@ dragPos:
 
 # Nesting Branch Statements
 
-We can put if-else statements inside of existing if-else statements to create more complex logic.
+We can put if-else statements inside of existing if-else statements. 
 
 ```cpp {all}{class:'!children:text-2xl'}
 if(smokeAlarmOn) {
@@ -261,9 +265,9 @@ You must use if-else statements to accomplish the lab.
 
 # Tips on the Zybooks Labs
 
-Review the sections of the Zybooks for branching statements w/ intervals.
+Review testing for values within intervals.
 
-
+Be meticulous, don't rush.
 
 
 ---
