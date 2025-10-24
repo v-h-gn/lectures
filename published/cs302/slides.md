@@ -17,6 +17,7 @@ transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
 ```
+
 # Computating and Energy 
 
 - Greenhouse gas emissions are the primary driver of global warming and climate change. 
@@ -25,6 +26,8 @@ dragPos:
 
 ## _PROBLEM:_ How to use less energy and still meet compute demands?
 ## _IDEA:_ Get inspiration from nature.
+
+<img src="https://media.nature.com/lw767/magazine-assets/d41586-025-01113-z/d41586-025-01113-z_50846472.png" v-drag="[458,66,511,426]"/>
 
 ---
 
@@ -43,7 +46,7 @@ dragPos:
 
 <br> *_8% of the brain's daily energy budget on a single query_.*
 
-<AdmonitionType title="Energy in terms of PhD Students" type="tip" width="300px" custom="text-lg" v-drag="[68,396,816,91]">
+<AdmonitionType title="Energy in terms of PhD Students" type="tip" width="300px" custom="text-lg" v-drag="[59,325,816,91]">
 Assuming 2000 kcal a day and 10 MWh annual US household expenditure, training a 24 year old PhD student takes about <b>260 MWh</b>, compare that to 50000 MWh for GPT-5. [2]
 </AdmonitionType>
 
@@ -90,27 +93,34 @@ layout: image-right
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
-image: https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs302/dna-origami.png
 ```
+
 # DNA Nanorobotics
 
 - Program DNA 3D structure to create devices for delivering drugs, diagnostics, etc.
+- Requires complex design tools which integrate:
+  - First Principles Molecular Simulation
+  - Approximate Computing
+  - Neural Network Structural Computing
 
+<img src="https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs302/dna-origami.png" v-drag="[451,61,511,394]"/>
 
 ---
 
 ```yaml
-layout: iframe-right
+layout: image-right
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
-url: https://www.sciencealert.com/swiss-startup-connects-16-human-mini-brains-to-create-low-energy-biocomputer
 ```
+
 ## Back to Brains: Organoid On a Chip
 
-- Neuron clusters are being grown and integrated into silicon chips
+- As of 2024, neuron clusters are being grown and integrated into silicon chips
 - Potential avenue for low energy neural networks
 - Great for drug design and medical research.
+
+<img src="https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs302/energy-cost-of-brains.png" v-drag="[465,85,448,368]"/>
 
 ---
 
@@ -124,7 +134,7 @@ dragPos:
 # Questions, Comments, Concerns, Quibbles?
 
 
---- 
+---
 
 ```yaml
 layout: full
