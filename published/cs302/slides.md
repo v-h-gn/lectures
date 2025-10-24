@@ -54,7 +54,7 @@ layout: image-right
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
-image: adelman-figure.png
+image: https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs302/adelman-figure.png
 ```
 # Adelman and DNA 
 
@@ -86,24 +86,25 @@ dragPos:
 ---
 
 ```yaml
-layout: full
+layout: image-right
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
+image: https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs302/dna-origami.png
 ```
 # DNA Nanorobotics
 
 - Program DNA 3D structure to create devices for delivering drugs, diagnostics, etc.
 
-![](image-1.png)
-![](image.png)
+
 ---
 
 ```yaml
-layout: full
+layout: iframe-right
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
+url: https://www.sciencealert.com/swiss-startup-connects-16-human-mini-brains-to-create-low-energy-biocomputer
 ```
 ## Back to Brains: Organoid On a Chip
 
