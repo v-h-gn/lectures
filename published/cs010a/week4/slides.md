@@ -151,7 +151,7 @@ dragPos:
 
 # Comments on Lab 3
 
-A few of you lost points because you didn't have any code plan or test cases. 
+A handful of you lost points because you didn't have any code plan or test cases. 
 
 Partial points were docked for major syntax errors, not matching the output exactly, or not having enough testcases.
 
