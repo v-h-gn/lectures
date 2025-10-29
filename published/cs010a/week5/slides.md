@@ -37,9 +37,9 @@ dragPos:
 
 # Strings
 
-A string is a sequence of characters. 
+A _string_ is a sequence of characters. 
 
-A string literal is when we take text and surround it with `""`
+When we see strings represented by double quotation marks, we call them _string-literals_.
 
 Ex. `"Hello, World!"`, `"Happy Halloween!"`, `"Spooky Scary Skeletons"`
 
@@ -84,7 +84,7 @@ dragPos:
     </tr>
     <tr>
       <td class="border px-4 py-2">Getting a substring between two indices</td>
-      <td class="border px-4 py-2" v-click>string1.substring(startIndex, numChars)</td>
+      <td class="border px-4 py-2" v-click>string1.substr(startIndex, numChars)</td>
     </tr>
     <tr>
       <td class="border px-4 py-2">Appending a character</td>
@@ -92,15 +92,15 @@ dragPos:
     </tr>
     <tr>
       <td class="border px-4 py-2">Appending a string</td>
-      <td class="border px-4 py-2" v-click>string1.append("Boo!")</td>
+      <td class="border px-4 py-2" v-click>string1.append(string2)</td>
     </tr>
     <tr>
       <td class="border px-4 py-2">Check if character is a digit</td>
-      <td class="border px-4 py-2" v-click>isdigit()</td>
+      <td class="border px-4 py-2" v-click>isdigit('9')</td>
     </tr>
     <tr>
       <td class="border px-4 py-2">Check if character is alphabetical</td>
-      <td class="border px-4 py-2" v-click>isalpha()</td>
+      <td class="border px-4 py-2" v-click>isalpha(string1.at(i))</td>
     </tr>
   </tbody>
 </table>
@@ -140,20 +140,28 @@ transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
 ```
-# Another Example: Last Week's Lab
+# Strings and Loops
 <br>
 
 ```cpp {all}{class:'!children:text-2xl'}
 // ... 
-  cout << userNum << " ";
-  for(int i = userNum - 1; i % 11 != 0; i++)
-      cout << i << " ";
-  cout << endl;
-  cout << userNum - i << endl;
+  for (int i = 0; i <= userString.length(); i++) {
+      char currentChar = _______; // what do we assign to currentChar if we want currentChar to be character at index i.
+  }
 // ...
 
 ```
 
+```cpp {all}{class:'!children:text-2xl'}
+// ... 
+  for (int i = 5; i > 0; i++) {
+      // if current char is the character at index i
+
+      cout << currentChar << " " endl;
+  }
+// ...
+
+```
 
  
 ---
@@ -168,9 +176,9 @@ dragPos:
 # Common Errors / Bad Practices with For Loops
 
 - Incorrect loop variable update, e.g. adding when you meant to subtract
-- Off by one bugs (OBOB), usually caused by using `<=` when you need `<` or vice versa.
+- Off by one bugs (OBOBs), usually caused by using `<=` when you need `<` or vice versa.
 - Iterator errors (caused when using strings w/ for loops incorrectly)
-- Concurrently modifying your loop variable in your loop expression (not an error, but bad program design)
+- Concurrently modifying your loop variable in your loop expression **not an error, but can lead you to problems in many cases
 
 ```cpp {all}{class:'!children:text-2xl'}
 for (int i = 0; i < N; i++) {
@@ -178,35 +186,6 @@ for (int i = 0; i < N; i++) {
     i--; // try not to do this EVER
 }
 ```
-
----
-
-```yaml
-layout: full
-transition: slide
-dragPos:
-  square: Left,Top,Width,Height,Rotate
-```
-
-# Spooky Cypher 
-
-You were invited to a Halloween murder mystery party. The host, who is playing the butler, Vahobgoblin Toothmummyan, asked you to help him make a cryptographic message via a simple substitution cypher. 
-
-(Ex. "HELLO WORLD" becomes "AYFFM DMPFK")
-
-1. Given the input message on one line,
-2. For each alphabetical character, generate a random character to replace it in the encoded version.
-3. Output the new encoded string.
-
-<br>
-
-#### What are some clues in the prompt that guide us towards which functions to use?
-<br>
-
-#### Should we try to do the modification in place, or should we create a new variable?
-<br>
-
-#### What are some possible bugs that can happen if we aren't careful?
 
 
 ---
