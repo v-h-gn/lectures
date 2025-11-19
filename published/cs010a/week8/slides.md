@@ -65,15 +65,18 @@ What are the elements of a function definition?
 #include <iostream>
 using namespace std;
 
-void prettyPrint(double avg, double std, string data_name) {
+void prettyPrint(const double& avg, 
+                 const double& std, 
+                 const string& data_name) {
     cout << data_name 
     << " mean & std_dev: " 
     << avg << " +/- "<< std << endl;
 }
 
 int main() {
-    prettyPrint(30.0, 7.5, "Quiz 3 Grades");
-    // outputs "Quiz 3 Grades mean & std_dev: 30.0 +/- 7.5
+    prettyPrint(30.0, 7.5, "Current (mA)");
+    // outputs "Current (mA) mean & std_dev: 30.0 +/- 7.5
+    prettyPrint(85.2, 11.3, "Lab Attendance (%)")
     return 0;
 }
 
@@ -84,7 +87,7 @@ int main() {
 --- 
 
 ```yaml
-layout: image-right
+layout: full
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
@@ -99,6 +102,13 @@ Creates a local copy within the function of the argument
 
 #### Pass by reference
 Avoids copying, any modifications that occur within the function will also occur to the argument variable
+
+
+#### Analogy: Collecting signatures
+
+Pass by value: I make a copy of the form and I give it to each of you on a USB, or via email etc.
+
+Pass by reference: I give you a link to the form on Google Drive and each of you give your signature there.
 
 
 ---
@@ -135,12 +145,10 @@ int main() {
 ```cpp {all}{class:'!children:text-xl'}
 void foo(int arg) {
     arg = arg + 1;
-    cout << arg << endl;
 }
 
 void bar(int& arg) {
     arg = arg + 1;
-    cout << arg << endl;
 }
 ```
 
@@ -159,10 +167,11 @@ A **reference** tracks the value of a variable (as opposed to directly storing t
 
 #### Ex `int& playerIDReference = &playerID;`
 
-
-
 _If `playerID` changes, `playerIDReference` will reflect that change._
 
+You **CANNOT** assign data to a reference variable. A variable reference is not the same as a variable.
+
+Ex. `int& playerIDReference = 0` gives an error
 
 # Variable Copy
 
@@ -186,7 +195,7 @@ dragPos:
 - Avoid assigning pass-by-value parameters 
 ::left::
 ### Bad ❌
-```cpp {all}
+```cpp {all}{class:'!children:text-l'}
 int roll(int numSides){
     numSides = rand() % numSides + 1;
     return numSides;
@@ -195,7 +204,7 @@ int roll(int numSides){
 ::right::
 
 ### Good ✅
-```cpp {all}
+```cpp {all}{class:'!children:text-l'}
 int roll(int numSides){
     int result = rand() % numSides + 1;
     return result;
@@ -213,11 +222,11 @@ dragPos:
 ```
 # Best Practices cont'd
 
-- Don't put function calls inside of functions, in this class at least.
+- Don't make functions call themselves. This is called _recursion_ and beyond the scope of this class.
 
 ::left::
 ### Bad ❌
-```cpp {all}
+```cpp {all}{class:'!children:text-l'}
 int roll(int value, int numSides){
     int result = rand() % numSides + 1;
     // retry until we get a result that doesn't equal value
@@ -229,7 +238,7 @@ int roll(int value, int numSides){
 ```
 ::right::
 ### Good ✅
-```cpp {all}
+```cpp {all}{class:'!children:text-l'}
 int roll(int value, int numSides){
     int result = rand() % numSides + 1;
     // retry until we get a result that doesn't equal value
@@ -237,6 +246,40 @@ int roll(int value, int numSides){
         result = rand() % numSides + 1;
     }
     return result;
+}
+```
+
+
+---
+
+```yaml
+layout: two-cols-header
+transition: slide
+dragPos:
+  square: Left,Top,Width,Height,Rotate
+```
+# Best Practices cont'd
+
+- Use `const` and `&` when you do not need to modify a variable.
+
+::left::
+### Bad ❌
+```cpp {all}{class:'!children:text-l'}
+void prettyPrint(double avg, double std, string data_name) {
+    cout << data_name 
+    << " mean & std_dev: " 
+    << avg << " +/- "<< std << endl;
+}
+```
+::right::
+### Good ✅
+```cpp {all}{class:'!children:text-l'}
+void prettyPrint(const double& avg, 
+                 const double& std, 
+                 const string& data_name) {
+    cout << data_name 
+    << " mean & std_dev: " 
+    << avg << " +/- "<< std << endl;
 }
 ```
 
