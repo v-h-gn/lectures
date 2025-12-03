@@ -25,6 +25,7 @@ dragPos:
 - Grades
 
 <img src="https://raw.githubusercontent.com/v-h-gn/lectures/refs/heads/main/published/cs010a/week10/qr-code.png" v-drag="[-8,0,0,0]">
+
 <img src="https://www.meme-arsenal.com/memes/ca21a3770c05da1a7bb8fcb8119191ca.jpg" v-drag="[638,288,303,224]">
 
 ---
