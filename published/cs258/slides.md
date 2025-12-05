@@ -23,7 +23,7 @@ dragPos:
 
 There are lots of relevant problems in biochemistry which can be represented as Markov Decision Process (MDPs).
 
-We'll focus on **retrosynthesis** and **antibiotic design.**
+We'll focus on **retrosynthesis** and **antimicrobial peptide design.**
 
 <img src = "https://alevelchemistry.co.uk/wp-content/uploads/2018/11/organic-synthesis-3.jpg" v-drag>
 
@@ -52,13 +52,17 @@ Ex. Hydrogen gas can be generated with electricity + H2O, more commonly generate
 
 # MDP Formulation
 
-States: Target molecule, usually given as a SMILES string Ex. `C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O)O)O)O)O`
+## States
+Target molecule, usually given as a SMILES string Ex. `C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O)O)O)O)O`
 
-Actions: The set of all reactions which contain the target molecule as a product
+## Actions
+The set of all reactions which contain the target molecule as a product
 
-Rewards: User defined weighted combination of the cost of the reaction (buying chemicals), time, complexity, negative weighting of undesired byproducts
+## Rewards
+User defined weighted combination of the cost of the reaction (buying chemicals), time, complexity, negative weighting of undesired byproducts
 
-Transition Model: $P(s_{t+1} | s_t, a_t) = 1$, i.e, there is little stochasticity involved.
+## Transition Model
+$P(s_{t+1} | s_t, a_t) = 1$, i.e, there is little stochasticity involved.
 
 
 ---
@@ -71,7 +75,7 @@ dragPos:
 ```
 ::left::
 
-# Antimicrobial Design
+# Antimicrobial Peptide Design
 
 Problem: Using antibiotics develops antibiotic resistance, how to design newer and more effective antibiotics?
 
@@ -85,13 +89,17 @@ The problem then becomes a search across the PCFG space for a candidate with the
 
 # MDP Formulation
 
-States: The set of all valid sentences defined by our AMP PCFG
+## States
+The set of all valid sentences defined by our AMP PCFG
 
-Actions: The set of all valid words which can be arranged in our sentence
+## Actions
+The set of all valid words which can be arranged in our sentence
 
-Rewards: Weighted combination of structural similarity (AlphaFold), genomic similarity (PDB, GenBank, etc), and environmental impacts (toxicity, synthesizability, etc)
+## Rewards
+Weighted combination of structural similarity (AlphaFold), genomic similarity (PDB, GenBank, etc), and environmental impacts (toxicity, synthesizability, etc)
 
-Transition Model: Probabilities of a particular word being in the sentence as defined by our PCFG.
+## Transition Model
+Probabilities of a particular word being in the sentence as defined by our PCFG.
 
 
 ---
@@ -103,13 +111,23 @@ dragPos:
   square: Left,Top,Width,Height,Rotate
 ```
 
-# AMP PCFG Environment Episode Trace
+# AMP PCFG Environment Episode Example
 
-User passes in a defined structure for a sentence (a target protein)
+User passes in a defined structure for a sentence (a target protein) 
 
 `<VARIABLE_START> <KNOWN_CHAIN>`
 
 Agent then uses PCFG grammar rules to perform an action, which results in.
+
+```
+"""
+S -> VARIABLE_START KNOWN_CHAIN [1.0]
+KNOWN_CHAIN -> 'ACIAGERRYGTCIYQGRLWAFCC' [1.0]
+VARIABLE_START -> 'A' VARIABLE_MID [0.5] | 'G' VARIABLE_MID [0.5]
+VARIABLE_MID -> 'C' VARIABLE_END [0.5] | 'D' VARIABLE_END [0.5]
+VARIABLE_END -> 'E' [1.0]
+"""
+```
 
 `<VARIABLE_START> ACIAGERRYGTCIYQGRLWAFCC`
 
@@ -131,18 +149,15 @@ transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
 ```
+# Evaluation
 
-# Proposed Evaluation
+- Scale of problems beyond timeline for class (existing works report taking millions of CPU hours to train decent results)
 
-Scale of problems beyond timeline for class (existing works report taking millions of CPU hours to train decent results)
+- Use smaller constrained scenarios to test the environment for class, eventually test actual stuff
 
-Thus, we resort to smaller constrained scenarios to test the environment.
+- Retrosynthesis: Hemoglobin Synthesis
 
-Regulatory Network: Sheep and wolves using (MARL)
-
-Retrosynthesis: Hemoglobin Synthesis
-
-AMP: Generating defensin analogs
+- Generating defensin analogues. (type of antibiotic protein humans produce)
 
 
 ---
