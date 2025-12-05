@@ -13,7 +13,7 @@ presenter: true
 ---
 
 ```yaml
-layout: full
+layout: image-right
 transition: slide
 dragPos:
   square: Left,Top,Width,Height,Rotate
@@ -23,34 +23,9 @@ dragPos:
 
 There are lots of relevant problems in biochemistry which can be represented as Markov Decision Process (MDPs).
 
-We'll focus on: regulatory networks, retrosynthesis, and antibiotic design.
+We'll focus on **retrosynthesis** and **antibiotic design.**
 
----
-
-```yaml
-layout: two-cols
-transition: slide
-dragPos:
-  square: Left,Top,Width,Height,Rotate
-```
-::left::
-
-# Regulatory networks
-
-Problem: How do biological agents make decisions
-
-Ex. White blood cells against pathogens, feedback loops for neurotransmitters, molecular toxins etc.
-
-
-::right::
-
-# MDP Formulation
-
-States: Vector of populations of actor groups, quantity of resources, Ex. $[p_1, p_2, ..., r_1, r_2...]$
-Actions: Vector of valid actions for each actor group, Ex. `compete, reproduce, travel, idle`
-Rewards: User defined reward function based on population dynamics. Ex $(p_1_{s_{t+1}} - p_1_s_t) * R$
-Transition Model: Stochastic weighted combination of all possible actions among various actors. Ex. compete ($p_1, p_2$) => $p_1 + \alpha * P(l_1|\alpha,p_1,p_2)$ and $p_2 - \beta * P(l_2 |\beta, p_1, p_2))$
-
+<img src = "https://alevelchemistry.co.uk/wp-content/uploads/2018/11/organic-synthesis-3.jpg" v-drag>
 
 ---
 
@@ -78,8 +53,11 @@ Ex. Hydrogen gas can be generated with electricity + H2O, more commonly generate
 # MDP Formulation
 
 States: Target molecule, usually given as a SMILES string Ex. `C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O)O)O)O)O`
+
 Actions: The set of all reactions which contain the target molecule as a product
+
 Rewards: User defined weighted combination of the cost of the reaction (buying chemicals), time, complexity, negative weighting of undesired byproducts
+
 Transition Model: $P(s_{t+1} | s_t, a_t) = 1$, i.e, there is little stochasticity involved.
 
 
@@ -108,8 +86,11 @@ The problem then becomes a search across the PCFG space for a candidate with the
 # MDP Formulation
 
 States: The set of all valid sentences defined by our AMP PCFG
+
 Actions: The set of all valid words which can be arranged in our sentence
+
 Rewards: Weighted combination of structural similarity (AlphaFold), genomic similarity (PDB, GenBank, etc), and environmental impacts (toxicity, synthesizability, etc)
+
 Transition Model: Probabilities of a particular word being in the sentence as defined by our PCFG.
 
 
@@ -180,6 +161,17 @@ dragPos:
 - AMP generation leverages NLTK and user defined grammar -> eventually grammar will be automatically generated based on database.
 
 - Environments internally decide whether to use GPU or CPU based on available hardware
+
+
+
+---
+
+```yaml
+layout: full
+transition: slide
+dragPos:
+  square: Left,Top,Width,Height,Rotate
+```
 
 # Future Work
 
